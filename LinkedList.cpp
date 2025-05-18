@@ -75,3 +75,88 @@ class Solution {
         }
     }
 };
+
+// Q4. Given a head singly linked list of positive integers. The task is to check if the given linked list is palindrome or not.
+
+class Solution {
+  public:
+    Node* reverse(Node* head) {
+        Node* prev = nullptr;
+        while (head) {
+            Node* nextNode = head->next;
+            head->next = prev;
+            prev = head;
+            head = nextNode;
+        }
+        return prev;
+    }
+
+    bool isPalindrome(Node *head) {
+        if (!head || !head->next) return true;
+
+        Node* slow = head;
+        Node* fast = head;
+        while (fast->next && fast->next->next) {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+
+        Node* secondHalfStart = reverse(slow->next);
+
+        Node* firstHalf = head;
+        Node* secondHalf = secondHalfStart;
+        bool isPalin = true;
+        while (secondHalf) {
+            if (firstHalf->data != secondHalf->data) {
+                isPalin = false;
+                break;
+            }
+            firstHalf = firstHalf->next;
+            secondHalf = secondHalf->next;
+        }
+
+        slow->next = reverse(secondHalfStart);
+
+        return isPalin;
+    }
+};
+
+// Q5. Given a singly linked list, remove all nodes that have a node with a greater value anywhere to their right in the list. Return the head of the modified linked list.
+
+class Solution {
+  public:
+    Node* reverse(Node* head) {
+        Node* prev = nullptr;
+        Node* curr = head;
+        while (curr) {
+            Node* nextNode = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = nextNode;
+        }
+        return prev;
+    }
+
+    Node *compute(Node *head) {
+        if (!head || !head->next) return head;
+
+        head = reverse(head);
+
+        Node* curr = head;
+        int maxVal = curr->data;
+        while (curr && curr->next) {
+            if (curr->next->data < maxVal) {
+                Node* temp = curr->next;
+                curr->next = curr->next->next;
+                delete temp;
+            } else {
+                curr = curr->next;
+                maxVal = curr->data;
+            }
+        }
+
+        head = reverse(head);
+
+        return head;
+    }
+};
