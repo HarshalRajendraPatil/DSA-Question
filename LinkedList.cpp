@@ -160,3 +160,75 @@ class Solution {
         return head;
     }
 };
+
+// Q6. Given a head of the singly linked list. If a loop is present in the list then return the first node of the loop else return NULL.
+
+class Solution {
+  public:
+    Node* findFirstNode(Node* head) {
+        if(head->next == head) return head;
+        if(!head->next) return nullptr;
+        struct Node* fast = head;
+        struct Node* slow = head;
+        while(fast->next && fast->next->next){
+            slow = slow->next;
+            fast = fast->next->next;
+            if (fast == slow){
+                slow = head;
+                while(slow!=fast){
+                    slow = slow->next;
+                    fast = fast->next;
+                }
+                return slow;
+            };
+        }
+        return nullptr;
+    }
+};
+
+// Q7. Given a singly linked list and a number k. Find the (n/k)th element, where n is the number of elements in the linked list. We need to consider ceil value in case of decimals.
+
+class Solution {
+  public:
+    int fractional_node(struct Node *head, int k) {
+        int nodes = 0;
+        Node* temp = head;
+        while(temp){
+            nodes++;
+            temp = temp->next;
+        }
+        int idx = (nodes+k-1)/k;
+        temp = head;
+        while(idx > 1){
+            temp = temp->next;
+            idx--;
+        }
+        return temp->data;
+    }
+};
+
+// Q8. Given two strings, head1 and head2, represented as linked lists where each character is stored in a node's data field, complete the function compare() that mimics the behavior of strcmp(). Specifically, the function should return:
+// 0 if both strings are identical,
+// 1 if the first linked list is lexicographically greater, and
+// -1 if the second linked list is lexicographically greater.
+
+class Solution {
+  public:
+    int compare(Node *head1, Node *head2) {
+        Node* temp1 = head1;
+        Node* temp2 = head2;
+        int res = 0;
+        while(temp1 && temp2){
+            if(temp1->data == temp2->data) res = 0;
+            else if(temp1->data > temp2->data) {res = 1;
+                return res;
+            }
+            else {res = -1; return res;}
+            temp1 = temp1->next;
+            temp2 = temp2->next;
+        }
+        if(temp1) res = 1;
+        if(temp2) res = -1;
+        return res;
+    }
+};
