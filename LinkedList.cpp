@@ -232,3 +232,119 @@ class Solution {
         return res;
     }
 };
+
+
+// Q9. Given two linked lists, which are sorted in non-decreasing order. The task is to merge them in such a way that the resulting list is in non-increasing order.
+
+class Solution {
+  public:
+    struct Node *rev(Node* head){
+        Node* prev = nullptr;
+        Node* cur = head;
+        while(cur){
+            Node* nextNode = cur->next;
+            cur->next = prev;
+            prev = cur;
+            cur = nextNode;
+        }
+        return prev;
+    }
+    
+    struct Node *mergeResult(Node *node1, Node *node2) {
+        struct Node* ll = new Node(-1);
+        struct Node* res = ll;
+        Node* temp1 = node1;
+        Node* temp2 = node2;
+        while(temp1 && temp2){
+            if (temp1->data > temp2->data){
+                res->next = new Node(temp2->data);
+                temp2 = temp2->next;
+            }else{
+                res->next = new Node(temp1->data);
+                temp1 = temp1->next;
+            }
+            res = res->next;
+        }
+        while(temp1){
+            res->next = new Node(temp1->data);
+            temp1 = temp1->next;
+            res = res->next;
+        }
+        while(temp2){
+            res->next = new Node(temp2->data);
+            temp2 = temp2->next;
+            res = res->next;
+        }
+        res = ll;
+        ll = res->next;
+        delete res;
+        ll = rev(ll);
+        return ll;
+    }
+};
+
+// Q10. Given the head of two sorted linked lists consisting of nodes respectively. The task is to merge both lists and return the head of the sorted merged list
+
+class Solution {
+  public:
+    Node* sortedMerge(Node* head1, Node* head2) {
+        struct Node* ll = new Node(-1);
+        Node* res = ll;
+        Node* temp1 = head1;
+        Node* temp2 = head2;
+        while(temp1 && temp2){
+            if (temp1->data > temp2->data){
+                res->next = new Node(temp2->data);
+                temp2 = temp2->next;
+            }else{
+                res->next = new Node(temp1->data);
+                temp1 = temp1->next;
+            }
+            res = res->next;
+        }
+        while(temp1){
+            res->next = new Node(temp1->data);
+            temp1 = temp1->next;
+            res = res->next;
+        }
+        while(temp2){
+            res->next = new Node(temp2->data);
+            temp2 = temp2->next;
+            res = res->next;
+        }
+        return ll->next;
+    }
+};
+
+// Q11. Given a sorted doubly linked list and an element x, you need to insert the element x into the correct position in the sorted Doubly linked list(DLL).
+
+class Solution {
+  public:
+    Node* sortedInsert(Node* head, int x) {
+        Node* newNode = new Node;
+        newNode->data = x;
+        newNode->next = nullptr;
+        newNode->prev = nullptr;
+
+        if (head == nullptr || head->data >= x) {
+            newNode->next = head;
+            if (head != nullptr) head->prev = newNode;
+            return newNode;
+        }
+
+        Node* curr = head;
+
+        while (curr->next != nullptr && curr->next->data < x) {
+            curr = curr->next;
+        }
+
+        newNode->next = curr->next;
+        if (curr->next != nullptr) {
+            curr->next->prev = newNode;
+        }
+        curr->next = newNode;
+        newNode->prev = curr;
+
+        return head;
+    }
+};
