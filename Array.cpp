@@ -92,3 +92,54 @@ class Solution {
         return -1;
     }
 };
+
+// Q7. Given an array arr of integers, find all the elements that occur more than once in the array. If no element repeats, return an empty array.
+
+class Solution {
+  public:
+    vector<int> findDuplicates(vector<int>& arr) {
+        vector<int>res;
+        unordered_map<int,int>mpp;
+        for (auto it: arr){
+            mpp[it] ++;
+        }
+        for (auto it : mpp){
+            if(it.second > 1) res.push_back(it.first);
+        }
+        return res;
+    }
+};
+
+// Q8. Given a sorted array, arr[] and a number target, you need to find the number of occurrences of target in arr[]. 
+
+class Solution {
+  public:
+    int countFreq(vector<int>& arr, int target) {
+        int cnt = 0;
+        for(auto it: arr){
+            if(it == target){
+                cnt++;
+            }
+        }
+        return cnt;
+    }
+};
+
+// Q9. Given two arrays a[] and b[], the task is to find the number of elements in the union between these two arrays. The Union of the two arrays can be defined as the set containing distinct elements from both arrays. If there are repetitions, then only one element occurrence should be there in the union.
+
+class Solution {
+  public:
+    // Function to return the count of number of elements in union of two arrays.
+    int findUnion(vector<int>& a, vector<int>& b) {
+        unordered_set<int> s;
+        for (auto it: a){
+            s.insert(it);
+        }
+        for (auto it: b){
+            s.insert(it);
+        }
+        return s.size();
+    }
+};
+
+
