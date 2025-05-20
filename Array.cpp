@@ -142,4 +142,53 @@ class Solution {
     }
 };
 
+// Q10. Given an array, arr of n integers, and an integer element x, find whether element x is present in the array. Return the index of the first occurrence of x in the array, or -1 if it doesn't exist.
+
+class Solution {
+  public:
+    // Function to search x in arr
+    // arr: input array
+    // X: element to be searched for
+    int search(vector<int>& arr, int x) {
+        int pos = -1;
+        for(int i = 0; i < arr.size(); i++){
+            if(arr[i] == x){
+                pos = i;
+                break;
+            }
+        }
+        return pos;
+    }
+};
+
+// Q10. Given an array arr[]. Find the majority element in the array. If no majority element exists, return -1.
+
+class Solution {
+  public:
+    int majorityElement(vector<int>& arr) {
+        int cnt = 0;
+        int el = -1;
+
+        for(int i = 0; i < arr.size(); i++){
+            if(cnt == 0){
+                el = arr[i];
+                cnt = 1;
+            } else if(arr[i] == el){
+                cnt++;
+            } else {
+                cnt--;
+            }
+        }
+        cnt = 0;
+        for(int i = 0; i < arr.size(); i++){
+            if(arr[i] == el) cnt++;
+        }
+
+        if(cnt > arr.size() / 2) return el;
+        return -1; 
+    }
+};
+
+
+
 
