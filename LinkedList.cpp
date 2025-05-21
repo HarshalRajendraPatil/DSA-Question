@@ -348,3 +348,30 @@ class Solution {
         return head;
     }
 };
+
+// Q12. Given two linked lists (L1 & L2), your task is to complete the function makeUnion(), which returns the union list of two linked lists. This union list should include all the distinct elements only and it should be sorted in ascending order.
+
+class Solution {
+  public:
+    struct Node* makeUnion(struct Node* head1, struct Node* head2) {
+        struct Node* res = new Node(-1);
+        Node* temp = res;
+        set<int>s;
+        Node* temp1 = head1;
+        while(temp1){
+            s.insert(temp1->data);
+            temp1 = temp1->next;
+        }
+        temp1 = head2;
+        while(temp1){
+            s.insert(temp1->data);
+            temp1 = temp1->next;
+        }
+        for(auto it: s){
+            struct Node* newNode = new Node(it);
+            temp->next = newNode;
+            temp = newNode;
+        }
+        return res->next;
+    }
+};
