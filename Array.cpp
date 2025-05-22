@@ -190,5 +190,46 @@ class Solution {
 };
 
 
+// Q11. Given a 2D integer array mat[][] and a number x, find whether element x is present in the matrix or not.
 
+class Solution {
+  public:
+    // Function to search a given integer in a matrix.
+    bool searchMatrix(vector<vector<int>> &mat, int x) {
+        // code here
+        for(auto it: mat){
+            for(auto it2: it){
+                if(it2 == x) return true;
+            }
+        }
+        return false;
+    }
+};
 
+// Q12. You are given a sorted array arr[] that may contain duplicate elements. Your task is to find the index of the last occurrence of any duplicate element and return the index along with the value of that element. If no duplicate element is found, return [-1, -1].
+
+class Solution {
+  public:
+    vector<int> dupLastIndex(vector<int>& arr) {
+        vector<int> res;
+        int idx = -1;
+        int el = -1;
+        for(int i = 0; i < arr.size() - 1; i++){
+            if(arr[i] == arr[i+1]){
+                el = arr[i];
+                idx = i+1;
+            }
+        }
+        res.push_back(idx);
+        res.push_back(el);
+        return res;
+    }
+};
+
+// Q13. Given an array arr[] of n positive integers. The task is to find the maximum for every adjacent pairs in the array.
+
+void maximumAdjacent(int sizeOfArray, int arr[]) {
+    for(int i = 0; i<sizeOfArray - 1; i++){
+        cout << max(arr[i], arr[i+1]) << " ";
+    }
+}
