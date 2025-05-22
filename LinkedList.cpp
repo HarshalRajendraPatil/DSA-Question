@@ -283,6 +283,7 @@ class Solution {
     }
 };
 
+
 // Q10. Given the head of two sorted linked lists consisting of nodes respectively. The task is to merge both lists and return the head of the sorted merged list
 
 class Solution {
@@ -315,6 +316,7 @@ class Solution {
         return ll->next;
     }
 };
+
 
 // Q11. Given a sorted doubly linked list and an element x, you need to insert the element x into the correct position in the sorted Doubly linked list(DLL).
 
@@ -349,6 +351,7 @@ class Solution {
     }
 };
 
+
 // Q12. Given two linked lists (L1 & L2), your task is to complete the function makeUnion(), which returns the union list of two linked lists. This union list should include all the distinct elements only and it should be sorted in ascending order.
 
 class Solution {
@@ -373,5 +376,79 @@ class Solution {
             temp = newNode;
         }
         return res->next;
+    }
+};
+
+
+// Q13. Given a singly linked list's head. Your task is to complete the function alternatingSplitList() that splits the given linked list into two smaller lists. The sublists should be made from alternating elements from the original list.
+
+class Solution {
+  public:
+    // Function to split a linked list into two lists alternately
+    vector<Node*> alternatingSplitList(struct Node* head) {
+        if (!head->next){
+            return {head, nullptr};
+        }
+        vector<Node*> res;
+        Node* temp = head;
+        struct Node* ll1 = new Node(-1);
+        struct Node* ll2 = new Node(-1);
+        Node* temp1 = ll1;
+        Node* temp2 = ll2;
+        while(temp){
+            temp1->next = new Node(temp->data);
+            temp1 = temp1->next;
+            if(temp->next) temp = temp->next->next;
+            else break;
+        }
+        temp = head->next;
+        while(temp){
+            temp2->next = new Node(temp->data);
+            temp2 = temp2->next;
+            if(temp->next) temp = temp->next->next;
+            else break;
+        }
+        res.push_back(ll1->next);
+        res.push_back(ll2->next);
+        return res;
+    }
+};
+
+
+// Q14. Given a singly linked list. The link list represents a binary number, ie- it contains only 0s and 1s. Find its decimal equivalent.
+
+class Solution {
+  public:
+    long long unsigned int decimalValue(Node *head) {
+        const int MOD = 1000000007;
+        long long result = 0;
+        while (head) {
+            result = (result * 2 + head->data) % MOD;
+            head = head->next;
+        }
+        return result;
+    }
+};
+
+
+// Q15. Given a Circular linked list. The task is split into two Circular Linked lists. If there are an odd number of nodes in the given circular linked list then out of the resulting two halved lists, the first list should have one node more than the second list.
+
+class Solution {
+  public:
+    pair<Node *, Node *> splitList(struct Node *head) {
+        if (head == NULL)
+            return {NULL, NULL};
+        Node *fast = head, *slow = head;
+        while (fast->next != head && fast->next->next != head) {
+            fast = fast->next->next;
+            slow = slow->next;
+        }
+        if (fast->next->next == head)
+            fast = fast->next;
+        Node *head1 = head;
+        Node *head2 = slow->next;
+        fast->next = slow->next;
+        slow->next = head;
+        return {head1, head2};
     }
 };
