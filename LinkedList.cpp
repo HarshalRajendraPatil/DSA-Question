@@ -452,3 +452,96 @@ class Solution {
         return {head1, head2};
     }
 };
+
+// Q16. Given a singly linked list. The task is to swap elements in the linked list pairwise. For example, if the input list is 1 2 3 4, the resulting list after swaps will be 2 1 4 3.
+
+class Solution {
+  public:
+    Node* pairWiseSwap(Node* head) {
+        if (!head || !head->next) return head;
+
+        Node* newHead = head->next;
+        Node* prev = nullptr;
+        Node* current = head;
+
+        while (current && current->next) {
+            Node* nextPair = current->next->next;
+            Node* second = current->next;
+
+            second->next = current;
+            current->next = nextPair;
+
+            if (prev) {
+                prev->next = second;
+            }
+
+            prev = current;
+            current = nextPair;
+        }
+
+        return newHead;
+    }
+};
+
+// Q17. Given elements as nodes of the two singly linked lists. The task is to multiply these two linked lists, say L1 and L2.
+
+class solution {
+  public:
+    long long multiplyTwoLists(Node *first, Node *second) {
+        Node* temp = first;
+        long long MOD = 1000000007;
+        long long num1 = 0;
+        long long num2 = 0;
+        while(temp){
+            num1 = num1 * 10 + temp->data;
+            temp = temp->next;
+        }
+        temp = second;
+        while(temp){
+            num2 = num2 * 10 + temp->data;
+            temp = temp->next;
+        }
+
+        long long ans = (num1*num2)%MOD;
+        return ans;
+    }
+};
+
+// Q18. Given a linked list and a number k. You have to reverse the first part of the linked list with k nodes and the second part with n-k nodes.
+
+class Solution {
+  public:
+    Node* rev(Node* head){
+        Node* cur = head;
+        Node* prev = nullptr;
+        while(cur){
+            Node* nextNode = cur->next;
+            cur->next = prev;
+            prev = cur;
+            cur = nextNode;
+        }
+        return prev;
+    }
+    
+    Node *reverse(Node *head, int k) {
+        Node* slow = nullptr;
+        Node* fast = head;
+        while(k > 0){
+            k--;
+            slow = fast;
+            fast = fast->next;
+        }
+        Node* head1 = head;
+        Node* head2 = fast;
+        slow->next = nullptr;
+        
+        head1 = rev(head1);
+        head2 = rev(head2);
+        slow = head1;
+        while(slow->next){
+            slow = slow->next;
+        }
+        slow->next = head2;
+        return head1;
+    }
+};
