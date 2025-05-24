@@ -545,3 +545,48 @@ class Solution {
         return head1;
     }
 };
+
+// Q19. Given the head of two singly linked lists, return the point where these two linked lists intersect.
+
+class Solution {
+  public:
+    Node* intersectPoint(Node* head1, Node* head2) {
+        int l1 = 0;
+        int l2 = 0;
+        Node* temp = head1;
+        while(temp){
+            l1++;
+            temp = temp->next;
+        }
+        temp = head2;
+        while(temp){
+            l2++;
+            temp = temp->next;
+        }
+        int diff = abs(l1-l2);
+        if(l2>l1){
+            temp = head2;
+            while(diff>0){
+                diff--;
+                temp = temp->next;
+            }
+            head2 = temp;
+        }else{
+            temp = head1;
+            while(diff>0){
+                diff--;
+                temp = temp->next;
+            }
+            head1 = temp;
+        }
+        Node* temp1 = head1;
+        Node* temp2 = head2;
+        
+        while(temp1 != temp2){
+            temp1 = temp1->next;
+            temp2 = temp2->next;
+            
+        }
+        return temp1;
+    }
+};
