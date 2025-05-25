@@ -590,3 +590,34 @@ class Solution {
         return temp1;
     }
 };
+
+// Q20. Given the head of a singly linked list, your task is to left rotate the linked list k times.
+
+class Solution {
+  public:
+    Node* rotate(Node* head, int k) {
+        if (!head || !head->next || k == 0) return head;
+
+        Node* last = head;
+        int nodes = 1;
+
+        while (last->next) {
+            last = last->next;
+            nodes++;
+        }
+
+        k = k % nodes;
+        if (k == 0) return head;
+
+        Node* temp = head;
+        for (int i = 1; i < k; i++) {
+            temp = temp->next;
+        }
+
+        Node* newHead = temp->next;
+        temp->next = nullptr;
+        last->next = head;
+
+        return newHead;
+    }
+};
