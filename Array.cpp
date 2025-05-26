@@ -206,6 +206,7 @@ class Solution {
     }
 };
 
+
 // Q12. You are given a sorted array arr[] that may contain duplicate elements. Your task is to find the index of the last occurrence of any duplicate element and return the index along with the value of that element. If no duplicate element is found, return [-1, -1].
 
 class Solution {
@@ -225,6 +226,7 @@ class Solution {
         return res;
     }
 };
+
 
 // Q13. Given an array arr[] of n positive integers. The task is to find the maximum for every adjacent pairs in the array.
 
@@ -246,3 +248,30 @@ class Solution {
     }
 };
 
+
+// Q15. Given an array arr, rotate the array by one position in clockwise direction
+
+class Solution {
+  public:
+    void rotate(vector<int> &arr) {
+        int last = arr[arr.size() - 1];
+        for (int i = arr.size() - 1; i > 0; i--){
+            arr[i] = arr[i - 1];
+        }
+        arr[0] = last; 
+    }
+};
+
+
+// Q16. You are given an array arr[], the task is to return a list elements of arr in alternate order (starting from index 0).
+
+class Solution {
+  public:
+    vector<int> getAlternates(vector<int> &arr) {
+        vector<int> res;
+        for(int i = 0; i < arr.size(); i+=2){
+            res.push_back(arr[i]);
+        }
+        return res;
+    }
+};
