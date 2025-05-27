@@ -275,3 +275,53 @@ class Solution {
         return res;
     }
 };
+
+
+// Q17. Given an array of positive integers arr[], return the second largest element from the array. If the second largest element doesn't exist then return -1.
+
+class Solution {
+  public:
+    int getSecondLargest(vector<int> &arr) {
+        int largest = arr[0];
+        int slar = -1;
+        for(int i = 0; i < arr.size(); i++){
+            if(arr[i] > largest){
+                slar = largest;
+                largest = arr[i];
+            }else if(arr[i] > slar && arr[i] < largest){
+                slar = arr[i];
+            }
+        }
+        return slar;
+    }
+};
+
+
+// Q18. Given an array arr[], check whether it is sorted in non-decreasing order. Return true if it is sorted otherwise false.
+
+class Solution {
+  public:
+    bool arraySortedOrNot(vector<int>& arr) {
+        for(int i = 0; i < arr.size() - 1; i++){
+            if(arr[i] > arr[i+1]) return false;
+        }
+        return true;
+    }
+};
+
+
+// Q19. Given a sorted array arr. Return the size of the modified array which contains only distinct elements.
+
+class Solution {
+  public:
+    int removeDuplicates(vector<int> &arr) {
+        int j = 0;
+        for(int i = 1; i < arr.size(); i++){
+            if(arr[i] != arr[j]){
+                arr[j+1] = arr[i];
+                j++;
+            }
+        }
+        return j+1;
+    }
+};
