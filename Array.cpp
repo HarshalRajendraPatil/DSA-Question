@@ -325,3 +325,89 @@ class Solution {
         return j+1;
     }
 };
+
+
+// Q20. Given an array arr[]. Rotate the array to the left (counter-clockwise direction) by d steps, where d is a positive integer. Do the mentioned change in the array in place.
+  
+class Solution {
+  public:
+    // Function to rotate an array by d elements in counter-clockwise direction.
+    void rev(vector<int>& arr, int s, int e){
+        int i = s;
+        int j = e;
+        while(i >= j){
+            swap(arr[i], arr[j]);
+            i++;
+            j--;
+        }
+    }
+    
+    void rotateArr(vector<int>& arr, int d) {
+        d = d % arr.size();
+        if (d == 0) return;
+        rev(arr, 0, d-1);
+        rev(arr, d, arr.size() - 1);
+        rev(arr, 0, arr.size() - 1);
+    }
+};
+
+
+// Q21. You are given an array arr[] of non-negative integers. Your task is to move all the zeros in the array to the right end while maintaining the relative order of the non-zero elements. The operation must be performed in place, meaning you should not use extra space for another array.
+
+class Solution {
+  public:
+    void pushZerosToEnd(vector<int>& arr) {
+        int i = 0;
+        int j = 0;
+        while(j < arr.size()){
+            if(arr[j] != 0){
+                arr[i++] = arr[j++];
+            }else{
+                j++;
+            }
+        }
+        while(i < arr.size()){
+            arr[i++] = 0;
+        }
+    }
+};
+
+
+// Q22. Given two arrays a[] and b[], the task is to find the number of elements in the union between these two arrays. The Union of the two arrays can be defined as the set containing distinct elements from both arrays. If there are repetitions, then only one element occurrence should be there in the union
+
+class Solution {
+  public:
+    // Function to return the count of number of elements in union of two arrays.
+    int findUnion(vector<int>& a, vector<int>& b) {
+        unordered_set<int> se;
+        for(int it: a){
+            se.insert(it);
+        }
+        for(int it: b){
+            se.insert(it);
+        }
+        int n = se.size();
+        return n;
+    }
+};
+
+
+// Q23. Given two unsorted integer arrays a[] and b[] each consisting of distinct elements, the task is to return the count of elements in the intersection (or common elements) of the two arrays.
+
+class Solution {
+  public:
+    int numberofElementsInIntersection(vector<int> &a, vector<int> &b) {
+        unordered_map<int, int> mpp;
+        int cnt = 0;
+        for(int it: a){
+            mpp[it]++;
+        }
+        for(int it: b){
+            mpp[it]--;
+        }
+        for(auto it: mpp){
+            if(it.second == 0) cnt++;
+        }
+        return cnt;
+    }
+};
