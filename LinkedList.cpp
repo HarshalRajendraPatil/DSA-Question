@@ -621,3 +621,29 @@ class Solution {
         return newHead;
     }
 };
+
+
+// Q21. Given the head of a linked list, the task is to find the middle. For example, the middle of 1-> 2->3->4->5 is 3. If there are two middle nodes (even count), return the second middle.
+
+class Solution {
+  public:
+    /* Should return data of middle node. If linked list is empty, then -1 */
+    int getMiddle(Node* head) {
+        if (!head) return 0;
+        
+
+        Node* slow = head;
+        Node* fast = head;
+        int cnt=0;
+
+        // Move fast by 2 steps and slow by 1 step
+        while (fast && fast->next) {
+            slow = slow->next;
+            fast = fast->next->next;
+            cnt++;
+        }
+
+        // When fast reaches the end, slow is at the middle
+        return slow->data;
+    }
+};
