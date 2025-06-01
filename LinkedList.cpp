@@ -647,3 +647,19 @@ class Solution {
         return slow->data;
     }
 };
+
+
+// Q22. Given an array of integer arr. Your task is to construct the linked list from arr & return the head of the linked list.
+
+class Solution {
+  public:
+    Node* constructLL(vector<int>& arr) {
+        Node* ll = new Node(-1);
+        Node* temp = ll;
+        for(auto i: arr){
+            temp->next = new Node(i);
+            temp = temp->next;
+        }
+        return ll->next;
+    }
+};
