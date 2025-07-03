@@ -83,3 +83,89 @@ class Solution {
         return leafNodes;
     }
 };
+
+
+// Q5. Given a binary tree, you have to return the size of it. Size of binary tree is defined as number of nodes in it.
+
+class Solution {
+  public:
+    int inorder(Node* root){
+        if(root == nullptr) return 0;
+        
+        int a = inorder(root->left);
+        int b = inorder(root->right);
+        return 1 + a + b;
+    }
+    int getSize(Node* node) {
+        int size = inorder(node);
+        return size;
+        
+    }
+};
+
+
+// Q6. Given a binary tree, find the sum of values of all the nodes. 
+
+class Solution {
+  public:
+    int inorder(Node* root){
+        if(root == nullptr) return 0;
+        
+        int a = inorder(root->left);
+        int b = inorder(root->right);
+        return root->data + a + b;
+    }
+  
+    int sumBT(Node* root) {
+        int sum = inorder(root);
+        return sum;
+    }
+};
+
+
+// Q7. Given a Binary Tree of size n, your task is to return the count of all the non-leaf nodes of the given binary tree.
+
+class Solution {
+  public:
+    int inorder(Node* root){
+        if(root == nullptr) return 0;
+        
+        int a = inorder(root->left);
+        int b = inorder(root->right);
+        
+        if(root->left != nullptr || root->right != nullptr){
+            return 1 + a + b;
+        }else{
+            return a + b;
+        }
+    }
+  
+    int countNonLeafNodes(Node* root) {
+        int nodes = inorder(root);
+        return nodes;
+    }
+};
+
+
+Q8. Given a binary tree, find the sum of values of all the leaf nodes. 
+
+class Solution {
+  public:
+    int inorder(Node* root){
+        if(root == nullptr) return 0;
+        
+        int a = inorder(root->left);
+        int b = inorder(root->right);
+        
+        if(root->left == nullptr && root->right == nullptr){
+            return root->data + a + b;
+        }else{
+            return a + b;
+        }
+    }
+  
+    int leafSum(Node* root) {
+        int sum = inorder(root);
+        return sum;
+    }
+};
