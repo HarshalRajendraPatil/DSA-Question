@@ -98,3 +98,57 @@ class Solution {
         }
     }
 };
+
+
+// Q5. Given a stack of integers of size N, your task is to complete the function pairWiseConsecutive(), that checks whether numbers in the stack are pairwise consecutive or not. The pairs can be increasing or decreasing, and if the stack has an odd number of elements, the element at the top is left out of a pair. 
+
+bool pairWiseConsecutive(stack<int> s) {
+    while(!s.empty()){
+        int a = s.top(), b;
+        s.pop();
+        if(s.size() > 0){
+            b = s.top();
+            s.pop();
+            if ((a - b) > 1 || (a - b) < -1){
+                return 0;
+            }
+        }
+    }
+    
+    
+    return 1;
+}
+
+
+// Q6. Given an array of negative and non-negative integers. You have to make the array beautiful. An array is beautiful if two adjacent integers, arr[i] and arr[i+1] are either negative or non-negative. And you can do the following operation any number of times until the array becomes beautiful.
+
+class Solution {
+  public:
+    vector<int> makeBeautiful(vector<int> arr) {
+        stack<int> s;
+        for(int i = 0; i < arr.size(); i++) {
+            
+            
+            
+            if(!s.empty() && ((s.top() >= 0 && arr[i] < 0) || (s.top() < 0 && arr[i] >= 0))) {
+                // Opposite signs → cancel out
+                s.pop();
+            } else {
+                s.push(arr[i]);
+            }
+        }
+
+        // Now move from stack to vector in correct order
+        vector<int> vec(s.size());
+        for(int i = s.size() - 1; i >= 0; i--) {
+            vec[i] = s.top();
+            s.pop();
+        }
+
+        return vec;
+    }
+};
+
+
+Q7. 
+
