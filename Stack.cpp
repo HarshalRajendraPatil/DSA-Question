@@ -150,5 +150,102 @@ class Solution {
 };
 
 
-Q7. 
+// Q7. Given an array arr[] and a number k. The task is to delete k elements that are smaller than the next element (i.e., we delete arr[i] if arr[i] < arr[i+1]) or become smaller than the next because the next element is deleted.
+
+class Solution {
+  public:
+    vector<int> deleteElement(vector<int>& arr, int k) {
+        stack<int> s;
+        for (int i : arr) {
+            while (!s.empty() && k > 0 && s.top() < i) {
+                s.pop();
+                k--;
+            }
+            s.push(i);
+        }
+
+        // Get stack contents in reverse order
+        vector<int> res(s.size());
+        for (int i = s.size() - 1; i >= 0; i--) {
+            res[i] = s.top();
+            s.pop();
+        }
+
+        return res;
+    }
+};
+
+
+// Q8. Tom is a string freak. He has got sequences of words arr[] to manipulate. If in a sequence, two same words come together then Tom destroys each other. Find the number of words left in the sequence after this pairwise destruction. 
+
+class Solution {
+  public:
+    int removeConsecutiveSame(vector<string>& arr) {
+        stack<string> s;
+        for(string i : arr){
+            if(!s.empty() && s.top() == i){
+                while(!s.empty() && s.top() == i){
+                    s.pop();
+                }
+            }else{
+                s.push(i);
+            }
+        }
+        return s.size();
+    }
+};
+
+
+// Q9. Given a string str, the task is to find the bracket numbers, i.e., for each bracket in str, return i if the bracket is the ith opening or closing bracket to appear in the string. 
+
+class Solution {
+  public:
+
+    vector<int> bracketNumbers(string str) {
+        vector<int> res;
+        stack<pair<char, int>>s;
+        int num = 1;
+        for(char c : str){
+            if(c == '(' || c == ')'){
+                if(!s.empty()){
+                  if(s.top().first == '(' && c == ')'){
+                      s.push({c, s.top().second});
+                      res.push_back(s.top().second);
+                      s.pop();
+                      s.pop();
+                  }else{
+                      s.push({c, num});
+                      res.push_back(num);
+                      num++;
+                  }
+                }else{
+                  s.push({c, num});
+                  res.push_back(num);
+                  num++;
+                }
+            }
+        }
+        return res;
+    }
+};
+
+
+// Q10. You are given a stack st of n integers and an element x. You have to insert x at the bottom of the given stack. 
+
+class Solution {
+  public:
+    stack<int> insertAtBottom(stack<int> st, int x) {
+        stack<int> s;
+        while(!st.empty()){
+            s.push(st.top());
+            st.pop();
+        }
+        s.push(x);
+        while(!s.empty()){
+            st.push(s.top());
+            s.pop();
+        }
+        return st;
+    }
+};
 
