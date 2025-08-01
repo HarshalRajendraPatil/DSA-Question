@@ -249,3 +249,86 @@ class Solution {
     }
 };
 
+
+// Q11. Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.
+
+class Solution {
+public:
+    int trap(vector<int>& heights) {
+        int n = heights.size();
+        vector<int>right(n, -1);
+        vector<int>left(n, -1);
+        
+        // starting for next greater
+        int greater = n - 1;
+        for(int i = n - 1; i >= 0; i--){
+            if(heights[i] < heights[greater]){
+                right[i] = greater;
+            }else{
+                greater = i;
+            }
+        }
+
+        // starting for previous greater
+        greater = 0;
+        for(int i = 0; i < n; i++){
+            if(heights[i] < heights[greater]){
+                left[i] = greater;
+            }else{
+                greater = i;
+            }
+        }
+
+        int sum = 0;
+        for(int i = 0; i < n; i++){
+            if(left[i] == -1 || right[i] == -1){
+                continue;
+            }else{
+                sum = sum + min(heights[right[i]], heights[left[i]]) - heights[i];
+            }
+        }
+        return sum;
+    }
+};
+
+
+// Q12. Given an array of integers heights representing the histogram's bar height where the width of each bar is 1, return the area of the largest rectangle in the histogram.
+
+class Solution {
+public:
+    int largestRectangleArea(vector<int>& heights) {
+        int n = heights.size();
+        vector<int> right(n, 0);
+        vector<int> left(n, -1);
+        stack<int>st;
+
+        for(int i = n - 1; i >= 0; i--){
+            while(st.size()>0 && heights[st.top()] >= heights[i]){
+                st.pop();
+            }
+            right[i] = st.empty() ? n : st.top();       
+            st.push(i);
+        }
+
+        while(!st.empty()){
+            st.pop();
+        }
+
+        for(int i = 0; i < n; i++){
+            while(st.size() > 0 && heights[i] <= heights[st.top()]){
+                st.pop();
+            }
+            left[i] = st.empty() ? -1 : st.top();       
+            st.push(i);
+        }
+
+        int ans = 0;
+        for(int i = 0; i < n; i++){
+            int width = right[i] - left[i] - 1;
+            int area = heights[i] * width;
+            ans = max(ans, area);
+        }
+        return ans;
+    }
+};
+
