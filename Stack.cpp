@@ -332,3 +332,107 @@ public:
     }
 };
 
+
+// Q13. Given a balanced parentheses string s, return the score of the string.
+
+class Solution {
+public:
+    int scoreOfParentheses(string s) {
+        int score = 0;
+        stack<int>st;
+        for(char c:s){
+            if(c == '('){
+                st.push(score);
+                score = 0;
+            }else{
+                score = st.top() + max(2*score, 1);
+                st.pop();
+            }
+        }
+        return score;
+    }
+};
+
+
+// Q14. Given a circular integer array nums (i.e., the next element of nums[nums.length - 1] is nums[0]), return the next greater number for every element in nums.
+
+class Solution {
+public:
+    vector<int> nextGreaterElements(vector<int>& nums) {
+        int n = nums.size();
+        vector<int>right(n, -1);
+        vector<int>left(n, -1);
+        vector<int>res(n, -1);
+        stack<int>st;
+
+        // starting for next greater
+        for(int i = n - 1; i >= 0; i--){
+            while(!st.empty() && nums[i] >= nums[st.top()]){
+                st.pop();
+            }
+            right[i] = st.empty() ? -1 : st.top();
+            st.push(i);
+        }
+
+        while(!st.empty()){
+            st.pop();
+        }
+
+        // starting for previous greater
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < i; j++){
+                if(nums[j] > nums[i]){
+                    left[i] = j;
+                    break;
+                }
+            }
+        }
+
+        for(int i = 0; i < n; i++){
+            if(left[i] == -1 && right[i] == -1){
+                res[i] = -1;
+                continue;
+            }else{
+                if(right[i] != -1){
+                    res[i] = nums[right[i]];
+                }else{
+                    res[i] = nums[left[i]];
+                }
+            }
+        }
+        return res;
+    }
+};
+
+// Q15. Given string num representing a non-negative integer num, and an integer k, return the smallest possible integer after removing k digits from num.
+
+class Solution {
+public:
+    string removeKdigits(string num, int k) {
+        int n = num.size();
+        string st; // acts like a stack
+
+        for(int i = 0; i < n; i++){
+            while(!st.empty() && k > 0 && st.back() > num[i]){
+                st.pop_back();
+                k--;
+            }
+            st.push_back(num[i]);
+        }
+
+        // Remove remaining k digits from the end
+        while(k > 0 && !st.empty()){
+            st.pop_back();
+            k--;
+        }
+
+        // Remove leading zeros
+        int start = 0;
+        while(start < st.size() && st[start] == '0') {
+            start++;
+        }
+
+        string result = st.substr(start);
+        return result.empty() ? "0" : result;
+    }
+};
