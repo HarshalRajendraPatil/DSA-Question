@@ -436,3 +436,116 @@ public:
         return result.empty() ? "0" : result;
     }
 };
+
+
+// Q16. You have a browser of one tab where you start on the homepage and you can visit another url, get back in the history number of steps or move forward in the history number of steps.
+
+class Node {
+    public:
+    string data;
+    Node* next;
+    Node* prev;
+
+    Node(string val){
+        this->data = val;
+        this->next = NULL;
+        this->prev = NULL;
+    }
+};
+
+class BrowserHistory {
+public:
+    Node* head = NULL;
+    int size = 0;
+    Node* trav = head;
+    BrowserHistory(string homepage) {
+        head = new Node(homepage);
+        trav = head;
+    }
+    
+    void visit(string url) {
+        head = trav;
+        Node* newNode = new Node(url);
+        newNode->next = head;
+        head->prev = newNode;
+        head = newNode;
+        size++;
+        trav = head;
+    }
+    
+    string back(int steps) {
+        while(trav->next != NULL && steps > 0){
+            steps--;
+            trav = trav->next;
+        }
+        return trav->data;
+    }
+    
+    string forward(int steps) {
+        while(trav->prev != NULL && steps > 0){
+            steps--;
+            trav = trav->prev;
+        }
+        return trav->data;
+    }
+};
+
+
+// Q17. Given two integer arrays pushed and popped each with distinct values, return true if this could have been the result of a sequence of push and pop operations on an initially empty stack, or false otherwise.
+
+class Solution {
+public:
+    bool validateStackSequences(vector<int>& pushed, vector<int>& popped) {
+        stack<int>st;
+        for(int ele:pushed){
+            st.push(ele);
+            while(!st.empty() && popped.size()>0 && st.top() == popped[0]){
+                st.pop();
+                popped.erase(popped.begin());
+            }
+        }
+        return st.empty();        
+    }
+};
+
+
+// Q18. Given a string s of '(' , ')' and lowercase English characters. Your task is to remove the minimum number of parentheses ( '(' or ')', in any positions ) so that the resulting parentheses string is valid and return any valid string.
+
+class Solution {
+public:
+    string minRemoveToMakeValid(string s) {
+        stack<int> st;
+        unordered_set<int> toRemove;
+
+        // First pass to find unmatched parentheses
+        for (int i = 0; i < s.length(); i++) {
+            if (s[i] == '(') {
+                st.push(i);
+            } else if (s[i] == ')') {
+                if (!st.empty()) {
+                    st.pop();
+                } else {
+                    toRemove.insert(i);
+                }
+            }
+        }
+
+        // Add remaining unmatched '(' indices to removal set
+        while (!st.empty()) {
+            toRemove.insert(st.top());
+            st.pop();
+        }
+
+        // Build the result string
+        string res = "";
+        for (int i = 0; i < s.length(); i++) {
+            if (toRemove.find(i) == toRemove.end()) {
+                res += s[i];
+            }
+        }
+
+        return res;
+    }
+};
+
+
