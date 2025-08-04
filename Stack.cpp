@@ -549,3 +549,95 @@ public:
 };
 
 
+// Q19. Given a rows x cols binary matrix filled with 0's and 1's, find the largest rectangle containing only 1's and return its area.
+
+class Solution {
+public:
+    int largestRectangle(vector<int>& heights){
+        int n = heights.size();
+        vector<int> right(n, n);
+        vector<int> left(n, -1);
+        stack<int> st;
+
+        for(int i = n - 1; i >= 0; i--){
+            while(st.size() > 0 && heights[i] <= heights[st.top()]){
+                st.pop();
+            }
+            right[i] = st.empty() ? n : st.top();
+            st.push(i);
+        }
+
+        while(!st.empty()){
+            st.pop();
+        }
+
+        for(int i = 0; i < n; i++){
+            while(st.size() > 0 && heights[i] <= heights[st.top()]){
+                st.pop();
+            }
+            left[i] = st.empty() ? -1 : st.top();
+            st.push(i);
+        }
+
+        int maxArea = 0;
+        for(int i = 0; i < n; i++){
+            int width = right[i] - left[i] - 1;
+            int curArea = heights[i] * width;
+            maxArea = max(maxArea, curArea);
+        }
+        return maxArea;
+    }
+    int maximalRectangle(vector<vector<char>>& matrix) {
+        int n = matrix.size();
+        int m = matrix[0].size();
+        vector<vector<int>> pSum(n, vector<int>(m, 0));
+        for(int j = 0; j < m; j++){
+            int sum = 0;
+            for(int i = 0; i < n; i++){
+                sum += (matrix[i][j] - '0');
+                if(matrix[i][j] == '0') sum = 0;
+                pSum[i][j] = sum;
+            }
+        }
+        int maxArea = 0;
+        for(int i = 0; i < n; i++){
+            int curArea = largestRectangle(pSum[i]);
+            maxArea = max(maxArea, curArea);
+        }
+        return maxArea;
+    }
+};
+
+
+Q20. You are given the head of a singly linked-list. The list can be represented as: L0 → L1 → … → Ln - 1 → Ln. Reorder the list to be on the following form: L0 → Ln → L1 → Ln - 1 → L2 → Ln - 2 → …. You may not modify the values in the list's nodes. Only nodes themselves may be changed.
+
+class Solution {
+public:
+    void reorderList(ListNode* head) {
+        int size = 0;
+        stack<ListNode*> st;
+        ListNode* ptr1 = head;
+        ListNode* ptr2 = NULL;
+        while(ptr1 != NULL){
+            st.push(ptr1);
+            ptr1 = ptr1->next;
+            size++;
+        }
+        if(size == 0 || size == 1 || size == 2) return;
+        ptr1 = head;
+        ptr2 = st.top();
+        st.pop();
+        while(!st.empty() && ptr1 != ptr2 && ptr1->next != ptr2){
+            ListNode* temp = ptr1->next;
+            ptr1->next = ptr2;
+            ptr2->next = temp;
+            ptr2 = st.top();
+            st.pop();
+            ptr1 = temp;
+        }
+        if(ptr1->next == ptr2){
+            ptr1->next = ptr2;
+        }
+            ptr2->next = NULL;
+    }
+};
