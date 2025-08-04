@@ -641,3 +641,78 @@ class Solution {
               ptr2->next = NULL;
       }
 };
+
+
+// Q21. Design a stack-like data structure to push elements to the stack and pop the most frequent element from the stack.
+
+class Node {
+public:
+    int data;
+    int freq;
+    Node* next;
+    Node* prev;
+    Node(int val){
+        this->data = val;
+        this->freq = 1;
+        this->next = NULL;
+        this->prev = NULL;
+    }
+};
+
+class FreqStack {
+public:
+    Node* head;
+    unordered_map<int, int> mpp;
+
+    FreqStack() {
+        head = NULL;
+    }
+
+    void push(int val) {
+        mpp[val]++;
+        Node* newNode = new Node(val);
+        newNode->freq = mpp[val];
+        if (head) {
+            head->next = newNode;
+            newNode->prev = head;
+            head = newNode;
+        } else {
+            head = newNode;
+        }
+    }
+
+    int pop() {
+        int maxFreq = 0;
+        for (auto it : mpp) {
+            maxFreq = max(maxFreq, it.second);
+        }
+
+        Node* trav = head;
+        int data = 0;
+        while (trav) {
+            if (trav->freq == maxFreq) {
+                data = trav->data;
+                Node* p = trav->prev;
+                Node* n = trav->next;
+
+                if (p) {
+                    p->next = n;
+                }
+                if (n) {
+                    n->prev = p;
+                }
+
+                if (trav == head) {
+                    head = p;
+                }
+
+                delete trav;
+                mpp[data]--;
+                break;
+            }
+            trav = trav->prev;
+        }
+        return data;
+    }
+};
+
