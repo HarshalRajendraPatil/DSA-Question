@@ -609,35 +609,35 @@ public:
 };
 
 
-Q20. You are given the head of a singly linked-list. The list can be represented as: L0 → L1 → … → Ln - 1 → Ln. Reorder the list to be on the following form: L0 → Ln → L1 → Ln - 1 → L2 → Ln - 2 → …. You may not modify the values in the list's nodes. Only nodes themselves may be changed.
+// Q20. You are given the head of a singly linked-list. The list can be represented as: L0 → L1 → … → Ln - 1 → Ln. Reorder the list to be on the following form: L0 → Ln → L1 → Ln - 1 → L2 → Ln - 2 → …. You may not modify the values in the list's nodes. Only nodes themselves may be changed.
 
 class Solution {
-public:
-    void reorderList(ListNode* head) {
-        int size = 0;
-        stack<ListNode*> st;
-        ListNode* ptr1 = head;
-        ListNode* ptr2 = NULL;
-        while(ptr1 != NULL){
-            st.push(ptr1);
-            ptr1 = ptr1->next;
-            size++;
-        }
-        if(size == 0 || size == 1 || size == 2) return;
-        ptr1 = head;
-        ptr2 = st.top();
-        st.pop();
-        while(!st.empty() && ptr1 != ptr2 && ptr1->next != ptr2){
-            ListNode* temp = ptr1->next;
-            ptr1->next = ptr2;
-            ptr2->next = temp;
-            ptr2 = st.top();
-            st.pop();
-            ptr1 = temp;
-        }
-        if(ptr1->next == ptr2){
-            ptr1->next = ptr2;
-        }
-            ptr2->next = NULL;
-    }
+  public:
+      void reorderList(ListNode* head) {
+          int size = 0;
+          stack<ListNode*> st;
+          ListNode* ptr1 = head;
+          ListNode* ptr2 = NULL;
+          while(ptr1 != NULL){
+              st.push(ptr1);
+              ptr1 = ptr1->next;
+              size++;
+          }
+          if(size == 0 || size == 1 || size == 2) return;
+          ptr1 = head;
+          ptr2 = st.top();
+          st.pop();
+          while(!st.empty() && ptr1 != ptr2 && ptr1->next != ptr2){
+              ListNode* temp = ptr1->next;
+              ptr1->next = ptr2;
+              ptr2->next = temp;
+              ptr2 = st.top();
+              st.pop();
+              ptr1 = temp;
+          }
+          if(ptr1->next == ptr2){
+              ptr1->next = ptr2;
+          }
+              ptr2->next = NULL;
+      }
 };
