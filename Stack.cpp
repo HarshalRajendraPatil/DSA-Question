@@ -716,3 +716,47 @@ public:
     }
 };
 
+
+// Q22. Implement a last-in-first-out (LIFO) stack using only two queues. The implemented stack should support all the functions of a normal stack (push, top, pop, and empty).
+
+class StackUsingQueues {
+private:
+    queue<int> q1, q2;
+    
+public:
+    void push(int data) {
+        // Add to q2
+        q2.push(data);
+        
+        // Transfer all elements from q1 to q2
+        while (!q1.empty()) {
+            q2.push(q1.front());
+            q1.pop();
+        }
+        
+        // Swap q1 and q2
+        swap(q1, q2);
+    }
+    
+    int pop() {
+        if (q1.empty()) {
+            cout << "Stack is empty!" << endl;
+            return INT_MIN;
+        }
+        
+        int data = q1.front();
+        q1.pop();
+        return data;
+    }
+    
+    int top() {
+        if (q1.empty()) {
+            return INT_MIN;
+        }
+        return q1.front();
+    }
+    
+    bool isEmpty() {
+        return q1.empty();
+    }
+};
