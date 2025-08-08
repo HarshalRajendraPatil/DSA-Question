@@ -132,4 +132,55 @@ class Solution {
 };
 
 
-// Q6. 
+// Q6. You are given an m x n grid where each cell can have one of three values: 0 representing an empty cell, 1 representing a fresh orange, or 2 representing a rotten orange. Every minute, any fresh orange that is 4-directionally adjacent to a rotten orange becomes rotten. Return the minimum number of minutes that must elapse until no cell has a fresh orange. If this is impossible, return -1.
+
+class Solution {
+public:
+    int orangesRotting(vector<vector<int>>& grid) {
+    int rows = grid.size();
+    int cols = grid[0].size();
+    
+    queue<pair<int, int>> q;
+    int fresh = 0;
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            if (grid[i][j] == 2) {
+                q.push({i, j});
+            } else if (grid[i][j] == 1) {
+                fresh++;
+            }
+        }
+    }
+    
+    if (fresh == 0) return 0;
+    
+    int time = 0;
+    int directions[4][2] = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+    
+    while (!q.empty() && fresh > 0) {
+        int size = q.size();
+        
+        for (int i = 0; i < size; i++) {
+            int row = q.front().first;
+            int col = q.front().second;
+            q.pop();
+            
+            for (int j = 0; j < 4; j++) {
+                int newRow = row + directions[j][0];
+                int newCol = col + directions[j][1];
+                
+                if (newRow >= 0 && newRow < rows && newCol >= 0 && newCol < cols && 
+                    grid[newRow][newCol] == 1) {
+                    grid[newRow][newCol] = 2;
+                    q.push({newRow, newCol});
+                    fresh--;
+                }
+            }
+        }
+        
+        if (!q.empty()) time++;
+    }
+    
+    return fresh == 0 ? time : -1;
+}
+};
