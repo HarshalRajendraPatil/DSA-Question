@@ -184,3 +184,56 @@ public:
     return fresh == 0 ? time : -1;
 }
 };
+
+
+// Q7. Implement a Queue using an Array.
+
+void MyQueue::push(int x) {
+    if (rear >= 100005) return; // Optional: overflow check
+    arr[rear++] = x;
+}
+
+// Function to pop an element from queue and return that element.
+int MyQueue::pop() {
+    if (front == rear) {
+        return -1; // Queue is empty
+    }
+
+    int data = arr[front++];
+    
+    // Optional: Reset indices if queue becomes empty
+    if (front == rear) {
+        front = 0;
+        rear = 0;
+    }
+
+    return data;
+}
+
+
+// Q8. Implement a Queue using Linked List. 
+
+void MyQueue::push(int x) {
+    QueueNode* node = new QueueNode(x);
+    if (rear == NULL) {
+        rear = front = node;
+        return;
+    }
+    rear->next = node;
+    rear = node;
+}
+
+int MyQueue::pop() {
+    if (front == NULL)
+        return -1;
+
+    int data = front->data;
+    QueueNode* temp = front;
+    front = front->next;
+
+    if (front == NULL)
+        rear = NULL;
+
+    delete temp;
+    return data;
+}
