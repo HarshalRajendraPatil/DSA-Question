@@ -237,3 +237,89 @@ int MyQueue::pop() {
     delete temp;
     return data;
 }
+
+
+// Q9. You are given an array of integers nums, there is a sliding window of size k which is moving from the very left of the array to the very right. You can only see the k numbers in the window. Each time the sliding window moves right by one position.
+
+class Solution {
+public:
+    vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+        vector<int> res;
+        deque<int> q;
+
+        for(int i = 0; i < nums.size(); i++){
+            while(!q.empty() && q.front() <= i - k){
+                q.pop_front();
+            }
+
+            while(!q.empty() && nums[q.back()] < nums[i]){
+                q.pop_back();
+            }
+
+            q.push_back(i);
+
+            if(i >= k - 1){
+                res.push_back(nums[q.front()]);
+            }
+        }
+
+        return res;
+    }
+};
+
+
+// Q10. Given an array arr[]  and a positive integer k, find the first negative integer for each and every window(contiguous subarray) of size k.
+
+class Solution {
+  public:
+    vector<int> firstNegInt(vector<int>& arr, int k) {
+        vector<int> res;
+        queue<int> q;
+        
+        for(int i = 0; i < arr.size(); i++){
+            if (!q.empty() && q.front() <= i - k){
+                q.pop();
+            }
+            if(arr[i] < 0){
+                q.push(i);
+            }
+            if (i >= k -1){
+                if (!q.empty()){
+                    res.push_back(arr[q.front()]);
+                }else {
+                    res.push_back(0);
+                }
+            }
+        }
+        return res;
+    }
+};
+
+
+// Q11. Given the root of a binary tree, return the level order traversal of its nodes' values. (i.e., from left to right, level by level).
+
+class Solution {
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        if (root == nullptr) return {};
+        vector<vector<int>> res;
+        queue<TreeNode*>q;
+
+        q.push(root);
+        while(!q.empty()){
+            int size = q.size();
+            vector<int> vec;
+            for(int i = 0; i < size; i++){
+                TreeNode* temp = q.front();
+                q.pop();
+                vec.push_back(temp->val);
+                if (temp->left) q.push(temp->left);
+                if (temp->right) q.push(temp->right);
+            }
+            res.push_back(vec);
+        }
+
+        return res;
+    }
+};
+
