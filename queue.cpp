@@ -323,3 +323,91 @@ public:
     }
 };
 
+
+// Q12. There are n gas stations along a circular tour. You are given two integer arrays gas[] and cost[], where gas[i] is the amount of gas available at station i and cost[i] is the gas needed to travel from station i to station (i+1). You have a car with an unlimited gas tank and start with an empty tank at some station. Your task is to return the index of the starting station if it is possible to travel once around the circular route in a clockwise direction without running out of gas at any station; otherwise, return -1.
+
+class Solution {
+  public:
+    int startStation(vector<int> &gas, vector<int> &cost) {
+        //  code here
+        int n = gas.size();
+        int balance = 0;
+        int deficit = 0;
+        int start = 0;
+        
+        for (int i = 0; i < n; i++){
+            balance+=gas[i] - cost[i];
+            if (balance < 0){
+                deficit += balance;
+                start = i + 1;
+                balance = 0;
+            }
+        }
+        
+        if (balance + deficit >= 0) return start;
+        return -1;
+    }
+};
+
+
+// Q13. You are given an m x n grid where each cell can have one of three values: 0 representing an empty cell, 1 representing a fresh orange, or 2 representing a rotten orange. Every minute, any fresh orange that is 4-directionally adjacent to a rotten orange becomes rotten. Return the minimum number of minutes that must elapse until no cell has a fresh orange. If this is impossible, return -1.
+
+class Solution {
+public:
+    int orangesRotting(vector<vector<int>>& grid) {
+        int n = grid.size();
+        int m = grid[0].size();
+        vector<vector<bool>> visited(n, vector<bool>(m, false));
+        queue<pair<pair<int, int>, int>> q;
+        int freshOranges = 0;
+        int time = 0;
+
+        for(int i = 0; i < n; i++){
+            for (int j = 0; j < m; j++){
+                if (grid[i][j] == 2){
+                    q.push({{i, j}, 0});
+                    visited[i][j] = true;
+                }else if (grid[i][j] == 1){
+                    freshOranges++;
+                }
+            }
+        }
+
+        while(!q.empty()){
+            int i = q.front().first.first;
+            int j = q.front().first.second;
+            int t = q.front().second;
+            q.pop();
+
+            time = max(time, t);
+
+            if (i - 1 >= 0 && !visited[i-1][j] && grid[i-1][j] == 1){
+                q.push({{i-1, j}, t + 1});
+                visited[i-1][j] = true;
+                freshOranges--;
+
+            }
+            if (i + 1 < n && !visited[i+1][j] && grid[i+1][j] == 1){
+                q.push({{i+1, j}, t + 1});
+                visited[i+1][j] = true;
+                freshOranges--;
+
+            }
+            if (j + 1 < m && !visited[i][j+1] && grid[i][j+1] == 1){
+                q.push({{i, j+1}, t + 1});
+                visited[i][j+1] = true;
+                freshOranges--;
+
+            }
+            if (j - 1 >= 0 && !visited[i][j-1] && grid[i][j-1] == 1){
+                q.push({{i, j-1}, t + 1});
+                visited[i][j-1] = true;
+                freshOranges--;
+
+            }
+        }
+
+        if (freshOranges > 0) return -1;
+        return time;
+    }
+};
