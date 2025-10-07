@@ -411,3 +411,77 @@ public:
         return time;
     }
 };
+
+
+// Q14. Given an array of integers arr[]  and a number k. Return the maximum sum of a subarray of size k.
+
+class Solution {
+  public:
+    int maxSubarraySum(vector<int>& arr, int k) {
+        queue<int> vec;
+        int maxi = 0;
+        int i = 0;
+        int curSum = 0;
+        while(i < k){
+            vec.push(arr[i]);
+            curSum+=arr[i];
+            i++;
+        }
+        if (k == arr.size()) return curSum;
+        maxi = curSum;
+        while(i < arr.size()){
+            curSum -= vec.front();
+            vec.pop();
+            vec.push(arr[i]);
+            curSum+=arr[i];
+            
+            maxi = max(maxi, curSum);
+            i++;
+        }
+        return maxi;
+    }
+};
+
+
+// Q15. Given an unsorted array arr[] of integers, find the number of subarrays whose sum exactly equal to a given number k.
+
+class Solution {
+  public:
+    int cntSubarrays(vector<int> &arr, int k) {
+        unordered_map<int, int> mpp;
+        mpp[0] = 1;
+        int cnt = 0;
+        int sum = 0;
+        for(int num: arr){
+            sum+=num;
+            cnt+=mpp[sum - k];
+            mpp[sum]++;
+        }
+        return cnt;
+    }
+};
+
+
+// Q16. You are given a string s. You have to find the length of the longest substring with all distinct characters. 
+
+class Solution {
+  public:
+    int longestUniqueSubstr(string &s) {
+        unordered_set<char> window;
+        int left = 0, right = 0;
+        int maxLen = 0;
+        
+        while (right < s.size()) {
+            if (window.find(s[right]) == window.end()) {
+                window.insert(s[right]);
+                maxLen = max(maxLen, right - left + 1);
+                right++;
+            } else {
+                window.erase(s[left]);
+                left++;
+            }
+        }
+        
+        return maxLen;
+    }
+};
