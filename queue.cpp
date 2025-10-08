@@ -485,3 +485,32 @@ class Solution {
         return maxLen;
     }
 };
+
+
+// Q17. Given a string s consisting of only lowercase alphabets, for each index i in the string (0 ≤ i < n), find the first non-repeating character in the prefix s[0..i]. If no such character exists, use '#'.
+
+class Solution {
+  public:
+    string firstNonRepeating(string &s) {
+        queue<char> q;
+        unordered_map<char ,int> mpp;
+        string str;
+        
+        for(int i = 0; i < s.size(); i++){
+            mpp[s[i]]++;
+            if (mpp[s[i]] == 1) q.push(s[i]);
+            
+            while(!q.empty() && mpp[q.front()] > 1) q.pop();
+            
+            if (q.empty()){
+                str+="#";
+            }else {
+                str+=q.front();
+            }
+        }
+        return str;
+    }
+};
+
+
+Q18. 
