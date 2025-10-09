@@ -513,4 +513,138 @@ class Solution {
 };
 
 
-Q18. 
+// Q18. You are given an integer array arr[]. Your task is to perform the following operations: The function _push() takes the array as parameters and returns a queue formed using the array. The function _pop(), takes the queue as the input parameter and prints the queue elements.
+
+queue<int> _push(vector<int> &arr) {
+    queue<int> q;
+    for(int a: arr){
+        q.push(a);
+    }
+    return q;
+}
+
+void _pop(queue<int> &q) {
+    while(!q.empty()){
+        cout << q.front() << " ";
+        q.pop();
+    }
+}
+
+// Q19. Given a queue of integers and Q queries. The task is to perform operations on the queue according to the query. Queries are as: i x : adds element x in the queue from the rear. r : removes the front element of the queue. h : returns the front element. f y : check if the element y is present or not in the queue. Return true if present, else false.
+
+class Solution {
+  public:
+
+    // Function to push an element in queue.
+    void enqueue(queue<int> &q, int x) {
+        q.push(x);
+    }
+
+    // Function to remove front element from queue.
+    void dequeue(queue<int> &q) {
+        q.pop();
+    }
+
+    // Function to find the front element of queue.
+        
+    int front(queue<int> &q) {
+        return q.front();
+    }
+
+        
+    // Function to find an element in the queue.
+    bool find(queue<int> q, int y) {
+        while(!q.empty()){
+            int a = q.front();
+            q.pop();
+            if (a == y) return true;
+        }
+        return false;
+    }
+};
+
+
+// Q20. Given an integer k and a queue of integers, we need to reverse the order of the first k elements of the queue, leaving the other elements in the same relative order. Only following standard operations are allowed on queue. enqueue(x) : Add an item x to rear of queue. dequeue() : Remove an item from front of queue. size() : Returns number of elements in queue. front() : Finds front item.
+
+class Solution {
+  public:
+    queue<int> modifyQueue(queue<int> &q, int k) {
+        stack<int>st;
+        int i = k;
+        while(i > 0){
+            st.push(q.front());
+            q.pop();
+            i--;
+        }
+        while(!st.empty()){
+            q.push(st.top());
+            st.pop();
+        }
+        for(int j = 0; j < q.size() - k; j++){
+            q.push(q.front());
+            q.pop();
+        }
+        return q;
+    }
+};
+
+
+// Q21. A deque is a double-ended queue that allows enqueue and dequeue operations from both the ends. Given a deque and q queries. The task is to perform some operation on dequeue according to the queries as given below: 1. pb: query to push back the element x. 2. pf: query to push element x(given with query) to the front of the deque. 3. pp_b(): query to delete element from the back of the deque. 4. f: query to return a front element from the deque.
+
+class Solution {
+  public:
+    // 1️⃣ Push element x to the back of deque
+    void pb(deque<int>& dq, int x) {
+        dq.push_back(x);
+    }
+
+    // 2️⃣ Pop element from the back of deque
+    void ppb(deque<int>& dq) {
+        if (!dq.empty())  // ✅ safety check to avoid runtime error
+            dq.pop_back();
+    }
+
+    // 3️⃣ Get front element of deque
+    int front_dq(deque<int>& dq) {
+        if (!dq.empty())  // ✅ safety check
+            return dq.front();
+        return -1;  // or throw exception depending on requirement
+    }
+
+    // 4️⃣ Push element x to the front of deque
+    void pf(deque<int>& dq, int x) {
+        dq.push_front(x);
+    }
+};
+
+
+// Q22. n people from 1 to n are standing in the queue at a movie ticket counter. It is a weird counter, as it distributes tickets to the first k people and then the last k people and again first k people and so on, once a person gets a ticket moves out of the queue. The task is to find the last person to get the ticket.
+
+class Solution {
+  public:
+    int distributeTicket(int n, int k) {
+        deque<int> dq;
+        for (int i = 1; i <= n; i++)
+            dq.push_back(i);
+
+        bool frontTurn = true;
+
+        while (dq.size() > 1) {
+            int take = min(k, (int)dq.size() - 1);
+
+            if (frontTurn) {
+                for (int i = 0; i < take; i++)
+                    dq.pop_front();
+            } else {
+                for (int i = 0; i < take; i++)
+                    dq.pop_back();
+            }
+
+            frontTurn = !frontTurn;
+        }
+
+        return dq.front();
+    }
+};
+
+
