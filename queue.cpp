@@ -648,3 +648,117 @@ class Solution {
 };
 
 
+// Q23. Implement a class myQueue that supports following operations: void enqueue(int x): Insert an element x at the end of the queue. void dequeue(): Remove the element from the front of the queue. int getFront(): Return the element at the front of the queue. int getRear(): Return the element at the rear end of the queue. bool isEmpty(): Return true if the queue is empty, otherwise false. int size(): Return the number of elements currently in the queue.
+
+class myQueue {
+    queue<int> q;
+  public:
+    void enqueue(int x) {
+        q.push(x);
+    }
+
+    void dequeue() {
+        if (!q.empty()) q.pop();
+    }
+
+    int getFront() {
+        return q.front();
+    }
+
+    int getRear() {
+        return q.back();
+    }
+
+    bool isEmpty() {
+        return q.empty();
+    }
+
+    int size() {
+        return q.size();
+    }
+};
+
+
+// Q24. Implement a Queue using stacks. You are allowed to use only stack data structures to implement the queue. The Queue must support the following operations: (i) enqueue(x): Insert an element x at the rear of the queue. (ii) dequeue(): Remove the element from the front of the queue. (iii) front(): Return the front element if the queue is not empty, else return -1. (iv) size(): Return the number of elements currently in the queue.
+
+class myQueue {
+    stack<int>s1, s2;
+
+  public:
+    myQueue() {
+    }
+
+    void enqueue(int x) {
+        s1.push(x);
+    }
+
+    void dequeue() {
+        if(s2.empty()){
+            while(!s1.empty()){
+                s2.push(s1.top());
+                s1.pop();
+            }
+        }
+        s2.pop();
+    }
+
+    int front() {
+        if(s2.empty()){
+            while(!s1.empty()){
+                s2.push(s1.top());
+                s1.pop();
+            }
+        }
+        if (s2.empty()){
+            return -1;
+        }else {
+            return s2.top();
+        }
+    }
+
+    int size() {
+        return s1.size() + s2.size();
+    }
+};
+
+
+// Q25. Given a Deque deq containing non-negative integers. Complete below functions depending type of query as mentioned and provided to you (indexing starts from 0): 1. eraseAt(x): this function should remove the element from specified position x in deque. 2. eraseInRange(start, end): this function should remove the elements in range start (inclusive), end (exclusive) specified in the argument of the function. Note: If start is equal to end then simply return. 3. eraseAll(): remove all the elements from the deque.
+
+class Solution {
+  public:
+    void eraseAt(deque<int> &deq, int x) {
+        for (int i = 0; i < x; i++){
+            deq.push_back(deq.front());
+            deq.pop_front();
+        }
+        deq.pop_front();
+        for (int i = 0; i < x; i++){
+            deq.push_front(deq.back());
+            deq.pop_back();
+        }
+    }
+
+    void eraseInRange(deque<int> &deq, int start, int end) {
+        if (start == end) return;
+        for (int i = 0; i < start; i++){
+            deq.push_back(deq.front());
+            deq.pop_front();
+        }
+        for(int i = start; i < end; i++){
+            deq.pop_front();
+        }
+        for (int i = 0; i < start; i++){
+            deq.push_front(deq.back());
+            deq.pop_back();
+        }
+    }
+
+        
+    void eraseAll(deque<int> &deq) {
+        while(!deq.empty()){
+            deq.pop_back();
+        }
+    }
+};
+
+
