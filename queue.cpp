@@ -762,3 +762,105 @@ class Solution {
 };
 
 
+// Q26. Given an array arr[] which contains data of N nodes of Complete Binary tree in level order fashion. The task is to print the level order traversal in sorted order.
+
+class Solution {
+  public:
+    vector<vector<int>> binTreeSortedLevels(int arr[], int n) {
+        vector<vector<int>>res;
+        queue<int> q;
+        for(int i = 0; i < n; i++){
+            q.push(arr[i]);
+        }
+        int power = 0;
+        while(!q.empty()){
+            vector<int>temp;
+            int size = pow(2, power);
+            power++;
+            while(size > 0){
+                size--;
+                if(!q.empty()){
+                    temp.push_back(q.front());
+                    q.pop();
+                }else {
+                    break;
+                }
+            }
+            sort(temp.begin(), temp.end());
+            res.push_back(temp);
+        }
+        return res;
+    }
+};
+
+
+// Q27. Given a head  Linked List . Construct the complete binary tree from the given Linked List and return the root of the tree. The result will be judged by printing the level order traversal of the binary tree.
+
+class Solution {
+  public:
+    Node* linkedListToBinaryTree(NodeLL* head) {
+        if (!head) return nullptr;
+
+        // Step 1: Create the root node using first element
+        Node* root = new Node(head->data);
+        head = head->next;
+
+        // Step 2: Create a queue for level order construction
+        queue<Node*> q;
+        q.push(root);
+
+        // Step 3: Construct tree in level order
+        while (head) {
+            // Take the front node as parent
+            Node* parent = q.front();
+            q.pop();
+
+            // Create left child
+            Node* leftChild = new Node(head->data);
+            parent->left = leftChild;
+            q.push(leftChild);
+            head = head->next;
+
+            if (!head) break; // no more nodes
+
+            // Create right child
+            Node* rightChild = new Node(head->data);
+            parent->right = rightChild;
+            q.push(rightChild);
+            head = head->next;
+        }
+
+        return root;
+    }
+};
+
+
+// Q28. Given a Binary Tree, check whether the given Binary Tree is Complete Binary Tree or not. A complete binary tree is a binary tree in which every level, except possibly the last, is completely filled, and all nodes should be as much close to left as possible.
+    
+class Solution {
+  public:
+    bool isCompleteBT(Node* root) {
+        if (!root) return true;
+
+        queue<Node*> q;
+        q.push(root);
+
+        bool nullSeen = false;
+
+        while (!q.empty()) {
+            Node* curr = q.front();
+            q.pop();
+
+            if (curr == nullptr) {
+                nullSeen = true;
+            } else {
+                if (nullSeen)
+                    return false; // non-null node after a null — violates completeness
+                q.push(curr->left);
+                q.push(curr->right);
+            }
+        }
+
+        return true;
+    }
+};
