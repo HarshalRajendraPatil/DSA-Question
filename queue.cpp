@@ -864,3 +864,67 @@ class Solution {
         return true;
     }
 };
+
+
+// Q29. In the game of Restricted Pacman, an infinite linear path is given. Pacman has to start at position 0 and eat as many candies as possible. In one move he can only jump a distance of either m or n.  If m and n are coprime numbers, find how many candies will be left on the board after the game is over.
+
+class Solution {
+  public:
+    int findHCF(int a, int b){
+        if (b == 0) return a;
+        return findHCF(b, a % b);
+    }
+    
+    int candies(int m, int n) {
+        if (findHCF(m, n) != 1) return 0;
+        return ((m-1) * (n-1)) / 2;
+    }
+};
+
+
+// Q30. Design a SpecialQueue data structure that functions like a normal queue but with additional support for retrieving the minimum and maximum element efficiently. The SpecialQueue must support the following operations: enqueue(x): Insert an element x at the rear of the queue. dequeue(): Remove the element from the front of the queue. getFront(): Return the front element without removing. getMin(): Return the minimum element in the queue in O(1) time. getMax(): Return the maximum element in the queue in O(1) time. There will be a sequence of queries queries[][]. The queries are represented in numeric form: 1 x : Call enqueue(x), 2:  Call dequeue(), 3: Call getFront(), 4: Call getMin(), 5: Call getMax(). The driver code will process the queries, call the corresponding functions, and print the outputs of getFront(), getMin(), getMax() operations. You only need to implement the above five functions. Note: It is guaranteed that all the queries are valid.
+
+class SpecialQueue {
+    queue<int> q;
+    deque<int> minDq, maxDq;
+
+  public:
+    void enqueue(int x) {
+        q.push(x);
+
+        while (!minDq.empty() && minDq.back() > x)
+            minDq.pop_back();
+        minDq.push_back(x);
+
+        while (!maxDq.empty() && maxDq.back() < x)
+            maxDq.pop_back();
+        maxDq.push_back(x);
+    }
+
+    void dequeue() {
+        if (q.empty()) return;
+        int front = q.front();
+        q.pop();
+
+        if (!minDq.empty() && minDq.front() == front)
+            minDq.pop_front();
+
+        if (!maxDq.empty() && maxDq.front() == front)
+            maxDq.pop_front();
+    }
+
+    int getFront() {
+        if (q.empty()) return -1;
+        return q.front();
+    }
+
+    int getMin() {
+        if (minDq.empty()) return -1;
+        return minDq.front();
+    }
+
+    int getMax() {
+        if (maxDq.empty()) return -1;
+        return maxDq.front();
+    }
+};
