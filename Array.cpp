@@ -1,4 +1,39 @@
-// Q1. Given an array arr[] of integers, change the given array such that at any index i it contains the sum of all elements except itself. Simple way arr[i] should be arr[0] + arr[1] ... arr[i-1] + arr[i+1] ... arr[n-1].
+// You are given a 0-indexed integer array nums of even length consisting of an equal number of positive and negative integers. You should return the array of nums such that the array follows the given conditions: Every consecutive pair of integers have opposite signs. For all integers with the same sign, the order in which they were present in nums is preserved. The rearranged array begins with a positive integer. Return the modified array after rearranging the elements to satisfy the aforementioned conditions.
+class Solution {
+public:
+    vector<int> rearrangeArray(vector<int>& nums) {
+        vector<int> res;
+        int i = 0; // +ve
+        int j = 0; // -ve
+
+        while(i < nums.size() && nums[i] < 0)i++;
+        while(j < nums.size() && nums[j] >= 0)j++;
+
+        while(i < nums.size() && j < nums.size()){
+            res.push_back(nums[i]);
+            res.push_back(nums[j]);
+            i++;
+            j++;
+            while(i < nums.size() && nums[i] < 0)i++;
+            while(j < nums.size() && nums[j] >= 0)j++;
+        }
+
+        while(i < nums.size()){
+            res.push_back(nums[i]);
+            i++;
+        }
+
+        while(j < nums.size()){
+            res.push_back(nums[j]);
+            j++;
+        }
+
+        return res;
+    }
+};
+
+
+// Given an array arr[] of integers, change the given array such that at any index i it contains the sum of all elements except itself. Simple way arr[i] should be arr[0] + arr[1] ... arr[i-1] + arr[i+1] ... arr[n-1].
 
 class Solution {
   public:
@@ -14,7 +49,7 @@ class Solution {
     }
 };
 
-// Q2. You are given an array arr[], and you have to re-construct an array arr[]. The values in arr[] are obtained by doing Xor of consecutive elements in the array.
+// You are given an array arr[], and you have to re-construct an array arr[]. The values in arr[] are obtained by doing Xor of consecutive elements in the array.
 
 int* game_with_number(int arr[], int n) {
     for (int i = 0; i <= n - 2; i++){
@@ -23,7 +58,7 @@ int* game_with_number(int arr[], int n) {
     return arr;
 }
 
-// Q3. Given two arrays arr1 and arr2, return the merged array in ascending order containing unique elements.
+// Given two arrays arr1 and arr2, return the merged array in ascending order containing unique elements.
 
 class Solution {
   public:
@@ -43,7 +78,7 @@ class Solution {
     }
 };
 
-// Q4. Given an array arr[], check whether it is sorted in non-decreasing order. Return true if it is sorted otherwise false.
+// Given an array arr[], check whether it is sorted in non-decreasing order. Return true if it is sorted otherwise false.
 
 class Solution {
   public:
@@ -55,7 +90,7 @@ class Solution {
     }
 };
 
-// Q5. Given a sorted array arr and an integer k, find the position(0-based indexing) at which k is present in the array using binary search.
+// Given a sorted array arr and an integer k, find the position(0-based indexing) at which k is present in the array using binary search.
 
 class Solution {
   public:
@@ -77,7 +112,7 @@ class Solution {
     }
 };
 
-// Q6. Given an array arr[] of size n, filled with numbers from 1 to n-1 in random order. The array has only one repetitive element. Your task is to find the repetitive element.
+// Given an array arr[] of size n, filled with numbers from 1 to n-1 in random order. The array has only one repetitive element. Your task is to find the repetitive element.
 
 class Solution {
   public:
@@ -93,7 +128,7 @@ class Solution {
     }
 };
 
-// Q7. Given an array arr of integers, find all the elements that occur more than once in the array. If no element repeats, return an empty array.
+// Given an array arr of integers, find all the elements that occur more than once in the array. If no element repeats, return an empty array.
 
 class Solution {
   public:
@@ -110,7 +145,7 @@ class Solution {
     }
 };
 
-// Q8. Given a sorted array, arr[] and a number target, you need to find the number of occurrences of target in arr[]. 
+// Given a sorted array, arr[] and a number target, you need to find the number of occurrences of target in arr[]. 
 
 class Solution {
   public:
@@ -125,7 +160,7 @@ class Solution {
     }
 };
 
-// Q9. Given two arrays a[] and b[], the task is to find the number of elements in the union between these two arrays. The Union of the two arrays can be defined as the set containing distinct elements from both arrays. If there are repetitions, then only one element occurrence should be there in the union.
+// Given two arrays a[] and b[], the task is to find the number of elements in the union between these two arrays. The Union of the two arrays can be defined as the set containing distinct elements from both arrays. If there are repetitions, then only one element occurrence should be there in the union.
 
 class Solution {
   public:
@@ -142,7 +177,7 @@ class Solution {
     }
 };
 
-// Q10. Given an array, arr of n integers, and an integer element x, find whether element x is present in the array. Return the index of the first occurrence of x in the array, or -1 if it doesn't exist.
+// Given an array, arr of n integers, and an integer element x, find whether element x is present in the array. Return the index of the first occurrence of x in the array, or -1 if it doesn't exist.
 
 class Solution {
   public:
@@ -161,7 +196,7 @@ class Solution {
     }
 };
 
-// Q10. Given an array arr[]. Find the majority element in the array. If no majority element exists, return -1.
+// Given an array arr[]. Find the majority element in the array. If no majority element exists, return -1.
 
 class Solution {
   public:
@@ -190,7 +225,7 @@ class Solution {
 };
 
 
-// Q11. Given a 2D integer array mat[][] and a number x, find whether element x is present in the matrix or not.
+// Given a 2D integer array mat[][] and a number x, find whether element x is present in the matrix or not.
 
 class Solution {
   public:
@@ -207,7 +242,7 @@ class Solution {
 };
 
 
-// Q12. You are given a sorted array arr[] that may contain duplicate elements. Your task is to find the index of the last occurrence of any duplicate element and return the index along with the value of that element. If no duplicate element is found, return [-1, -1].
+// You are given a sorted array arr[] that may contain duplicate elements. Your task is to find the index of the last occurrence of any duplicate element and return the index along with the value of that element. If no duplicate element is found, return [-1, -1].
 
 class Solution {
   public:
@@ -228,7 +263,7 @@ class Solution {
 };
 
 
-// Q13. Given an array arr[] of n positive integers. The task is to find the maximum for every adjacent pairs in the array.
+// Given an array arr[] of n positive integers. The task is to find the maximum for every adjacent pairs in the array.
 
 void maximumAdjacent(int sizeOfArray, int arr[]) {
     for(int i = 0; i<sizeOfArray - 1; i++){
@@ -236,7 +271,7 @@ void maximumAdjacent(int sizeOfArray, int arr[]) {
     }
 }
 
-// Q14. Given an integer k and array arr. Your task is to return the position of the first occurrence of k in the given array and if element k is not present in the array then return -1.
+// Given an integer k and array arr. Your task is to return the position of the first occurrence of k in the given array and if element k is not present in the array then return -1.
 
 class Solution {
   public:
@@ -249,7 +284,7 @@ class Solution {
 };
 
 
-// Q15. Given an array arr, rotate the array by one position in clockwise direction
+// Given an array arr, rotate the array by one position in clockwise direction
 
 class Solution {
   public:
@@ -263,7 +298,7 @@ class Solution {
 };
 
 
-// Q16. You are given an array arr[], the task is to return a list elements of arr in alternate order (starting from index 0).
+// You are given an array arr[], the task is to return a list elements of arr in alternate order (starting from index 0).
 
 class Solution {
   public:
@@ -277,7 +312,7 @@ class Solution {
 };
 
 
-// Q17. Given an array of positive integers arr[], return the second largest element from the array. If the second largest element doesn't exist then return -1.
+// Given an array of positive integers arr[], return the second largest element from the array. If the second largest element doesn't exist then return -1.
 
 class Solution {
   public:
@@ -297,7 +332,7 @@ class Solution {
 };
 
 
-// Q18. Given an array arr[], check whether it is sorted in non-decreasing order. Return true if it is sorted otherwise false.
+// Given an array arr[], check whether it is sorted in non-decreasing order. Return true if it is sorted otherwise false.
 
 class Solution {
   public:
@@ -310,7 +345,7 @@ class Solution {
 };
 
 
-// Q19. Given a sorted array arr. Return the size of the modified array which contains only distinct elements.
+// Given a sorted array arr. Return the size of the modified array which contains only distinct elements.
 
 class Solution {
   public:
@@ -327,7 +362,7 @@ class Solution {
 };
 
 
-// Q20. Given an array arr[]. Rotate the array to the left (counter-clockwise direction) by d steps, where d is a positive integer. Do the mentioned change in the array in place.
+// Given an array arr[]. Rotate the array to the left (counter-clockwise direction) by d steps, where d is a positive integer. Do the mentioned change in the array in place.
   
 class Solution {
   public:
@@ -352,7 +387,7 @@ class Solution {
 };
 
 
-// Q21. You are given an array arr[] of non-negative integers. Your task is to move all the zeros in the array to the right end while maintaining the relative order of the non-zero elements. The operation must be performed in place, meaning you should not use extra space for another array.
+// You are given an array arr[] of non-negative integers. Your task is to move all the zeros in the array to the right end while maintaining the relative order of the non-zero elements. The operation must be performed in place, meaning you should not use extra space for another array.
 
 class Solution {
   public:
@@ -373,7 +408,7 @@ class Solution {
 };
 
 
-// Q22. Given two arrays a[] and b[], the task is to find the number of elements in the union between these two arrays. The Union of the two arrays can be defined as the set containing distinct elements from both arrays. If there are repetitions, then only one element occurrence should be there in the union
+// Given two arrays a[] and b[], the task is to find the number of elements in the union between these two arrays. The Union of the two arrays can be defined as the set containing distinct elements from both arrays. If there are repetitions, then only one element occurrence should be there in the union
 
 class Solution {
   public:
@@ -392,7 +427,7 @@ class Solution {
 };
 
 
-// Q23. Given two unsorted integer arrays a[] and b[] each consisting of distinct elements, the task is to return the count of elements in the intersection (or common elements) of the two arrays.
+// Given two unsorted integer arrays a[] and b[] each consisting of distinct elements, the task is to return the count of elements in the intersection (or common elements) of the two arrays.
 
 class Solution {
   public:
@@ -413,7 +448,7 @@ class Solution {
 };
 
 
-// Q24. You are given an array arr[] of size n - 1 that contains distinct integers in the range from 1 to n (inclusive). This array represents a permutation of the integers from 1 to n with one element missing. Your task is to identify and return the missing element.
+// You are given an array arr[] of size n - 1 that contains distinct integers in the range from 1 to n (inclusive). This array represents a permutation of the integers from 1 to n with one element missing. Your task is to identify and return the missing element.
 
 class Solution {
   public:
@@ -429,7 +464,7 @@ class Solution {
 };
 
 
-// Q25. Given a sorted array arr[] of n positive integers having all the numbers occurring exactly twice, except for one number which will occur only once. Find the number occurring only once.
+// Given a sorted array arr[] of n positive integers having all the numbers occurring exactly twice, except for one number which will occur only once. Find the number occurring only once.
 
 class Solution {
   public:
@@ -443,7 +478,7 @@ class Solution {
 };
 
 
-// Q26. Given an array arr[] containing integers and an integer k, your task is to find the length of the longest subarray where the sum of its elements is equal to the given value k. If there is no subarray with sum equal to k, return 0.
+// Given an array arr[] containing integers and an integer k, your task is to find the length of the longest subarray where the sum of its elements is equal to the given value k. If there is no subarray with sum equal to k, return 0.
 
 class Solution {
   public:
