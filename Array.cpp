@@ -1,3 +1,44 @@
+// Given an m x n matrix, return all elements of the matrix in spiral order.
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        vector<int> res;
+        int n = matrix.size();
+        int m = matrix[0].size();
+
+        int left = 0;
+        int top = 0;
+        int right = m - 1;
+        int bottom = n - 1;
+
+        while(left <= right && top <= bottom){
+            for (int i = left; i <= right; i++){
+                res.push_back(matrix[top][i]);
+            }
+            top++;
+            for(int i = top; i <= bottom; i++){
+                res.push_back(matrix[i][right]);
+            }
+            right--;
+            if (top <= bottom){
+                for(int i = right; i >= left; i--){
+                    res.push_back(matrix[bottom][i]);
+                }
+                bottom--;
+            }
+            if (left <= right){
+                for(int i = bottom; i >= top; i--){
+                    res.push_back(matrix[i][left]);
+                }
+                left++;
+            }
+        }
+
+        return res;
+    }
+};
+
+
 // You are given a 0-indexed integer array nums of even length consisting of an equal number of positive and negative integers. You should return the array of nums such that the array follows the given conditions: Every consecutive pair of integers have opposite signs. For all integers with the same sign, the order in which they were present in nums is preserved. The rearranged array begins with a positive integer. Return the modified array after rearranging the elements to satisfy the aforementioned conditions.
 class Solution {
 public:
