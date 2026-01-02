@@ -1,3 +1,29 @@
+// You are given an integer array arr of size n which contains both positive and negative integers. Your task is to find the length of the longest contiguous subarray with sum equal to 0. Return the length of such a subarray. If no such subarray exists, return 0.
+class Solution {
+  public:
+    int maxLen(vector<int>& arr) {
+      unordered_map<int, int>mpp;
+      int sum = 0;
+      int lsa = 0;
+      for (int i = 0; i < arr.size(); i++){
+        sum+=arr[i];
+        if (sum == 0){
+          lsa = max(lsa, i+1);
+        }else{
+          int rem = sum;
+          if (mpp.find(rem) != mpp.end()){
+            lsa = max(lsa, i - mpp[rem]);
+          }
+        }
+        if(mpp.find(sum) == mpp.end()){
+          mpp[sum] = i;
+        }
+      }
+      return lsa;
+    }
+};
+
+
 // Given an array of integers nums and an integer k, return the total number of subarrays whose sum equals to k. A subarray is a contiguous non-empty sequence of elements within an array.
 class Solution {
 public:
