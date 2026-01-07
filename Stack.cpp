@@ -1,4 +1,30 @@
-// Q1. Given an integer array arr. For each element in the array, check whether the right adjacent element (on the next immediate position) of the array is smaller. If the next element is smaller, update the current index to that element. If not, then update to -1.
+// Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+
+class Solution {
+public:
+    bool isValid(string s) {
+        stack<char>st;
+        for(char c : s){
+            if (c == '(' || c == '{' || c == '['){
+                st.push(c);
+            }else {
+                if (st.empty()){
+                    return false;
+                }else {
+                    if (c == ')' && st.top() == '(' || c == '}' && st.top() == '{' || c == ']' && st.top() == '['){
+                    st.pop();
+                }else {
+                    st.push(c);
+                }
+                }
+            }
+        }
+        return st.empty();
+    }
+};
+
+
+// Given an integer array arr. For each element in the array, check whether the right adjacent element (on the next immediate position) of the array is smaller. If the next element is smaller, update the current index to that element. If not, then update to -1.
 
 class Solution {
   public:
@@ -23,7 +49,7 @@ class Solution {
 };
 
 
-// Q2. You are given an array arr[], the task is to reverse the array elements in-place by using a stack.
+// You are given an array arr[], the task is to reverse the array elements in-place by using a stack.
 
 class Solution {
   public:
@@ -40,7 +66,7 @@ class Solution {
 };
 
 
-// Q3. Given a stack of integers and Q queries. The task is to perform the operation on stack according to the query.
+// Given a stack of integers and Q queries. The task is to perform the operation on stack according to the query.
 
 void insert(stack<int> &s, int x) {
     s.push(x);
@@ -76,7 +102,7 @@ bool find(stack<int> s, int val) {
 }
 
 
-// Q4. You are given an integer array arr[]. You need to push the elements of the array into a stack and then print them while popping.
+// You are given an integer array arr[]. You need to push the elements of the array into a stack and then print them while popping.
 
 class Solution {
   public:
@@ -100,7 +126,7 @@ class Solution {
 };
 
 
-// Q5. Given a stack of integers of size N, your task is to complete the function pairWiseConsecutive(), that checks whether numbers in the stack are pairwise consecutive or not. The pairs can be increasing or decreasing, and if the stack has an odd number of elements, the element at the top is left out of a pair. 
+// Given a stack of integers of size N, your task is to complete the function pairWiseConsecutive(), that checks whether numbers in the stack are pairwise consecutive or not. The pairs can be increasing or decreasing, and if the stack has an odd number of elements, the element at the top is left out of a pair. 
 
 bool pairWiseConsecutive(stack<int> s) {
     while(!s.empty()){
@@ -120,7 +146,7 @@ bool pairWiseConsecutive(stack<int> s) {
 }
 
 
-// Q6. Given an array of negative and non-negative integers. You have to make the array beautiful. An array is beautiful if two adjacent integers, arr[i] and arr[i+1] are either negative or non-negative. And you can do the following operation any number of times until the array becomes beautiful.
+// Given an array of negative and non-negative integers. You have to make the array beautiful. An array is beautiful if two adjacent integers, arr[i] and arr[i+1] are either negative or non-negative. And you can do the following operation any number of times until the array becomes beautiful.
 
 class Solution {
   public:
@@ -150,7 +176,7 @@ class Solution {
 };
 
 
-// Q7. Given an array arr[] and a number k. The task is to delete k elements that are smaller than the next element (i.e., we delete arr[i] if arr[i] < arr[i+1]) or become smaller than the next because the next element is deleted.
+// Given an array arr[] and a number k. The task is to delete k elements that are smaller than the next element (i.e., we delete arr[i] if arr[i] < arr[i+1]) or become smaller than the next because the next element is deleted.
 
 class Solution {
   public:
@@ -176,7 +202,7 @@ class Solution {
 };
 
 
-// Q8. Tom is a string freak. He has got sequences of words arr[] to manipulate. If in a sequence, two same words come together then Tom destroys each other. Find the number of words left in the sequence after this pairwise destruction. 
+// Tom is a string freak. He has got sequences of words arr[] to manipulate. If in a sequence, two same words come together then Tom destroys each other. Find the number of words left in the sequence after this pairwise destruction. 
 
 class Solution {
   public:
@@ -196,7 +222,7 @@ class Solution {
 };
 
 
-// Q9. Given a string str, the task is to find the bracket numbers, i.e., for each bracket in str, return i if the bracket is the ith opening or closing bracket to appear in the string. 
+// Given a string str, the task is to find the bracket numbers, i.e., for each bracket in str, return i if the bracket is the ith opening or closing bracket to appear in the string. 
 
 class Solution {
   public:
@@ -230,7 +256,7 @@ class Solution {
 };
 
 
-// Q10. You are given a stack st of n integers and an element x. You have to insert x at the bottom of the given stack. 
+// You are given a stack st of n integers and an element x. You have to insert x at the bottom of the given stack. 
 
 class Solution {
   public:
@@ -250,7 +276,7 @@ class Solution {
 };
 
 
-// Q11. Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.
+// Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.
 
 class Solution {
 public:
@@ -292,7 +318,7 @@ public:
 };
 
 
-// Q12. Given an array of integers heights representing the histogram's bar height where the width of each bar is 1, return the area of the largest rectangle in the histogram.
+// Given an array of integers heights representing the histogram's bar height where the width of each bar is 1, return the area of the largest rectangle in the histogram.
 
 class Solution {
 public:
@@ -333,7 +359,7 @@ public:
 };
 
 
-// Q13. Given a balanced parentheses string s, return the score of the string.
+// Given a balanced parentheses string s, return the score of the string.
 
 class Solution {
 public:
@@ -354,7 +380,7 @@ public:
 };
 
 
-// Q14. Given a circular integer array nums (i.e., the next element of nums[nums.length - 1] is nums[0]), return the next greater number for every element in nums.
+// Given a circular integer array nums (i.e., the next element of nums[nums.length - 1] is nums[0]), return the next greater number for every element in nums.
 
 class Solution {
 public:
@@ -404,7 +430,7 @@ public:
     }
 };
 
-// Q15. Given string num representing a non-negative integer num, and an integer k, return the smallest possible integer after removing k digits from num.
+// Given string num representing a non-negative integer num, and an integer k, return the smallest possible integer after removing k digits from num.
 
 class Solution {
 public:
@@ -438,7 +464,7 @@ public:
 };
 
 
-// Q16. You have a browser of one tab where you start on the homepage and you can visit another url, get back in the history number of steps or move forward in the history number of steps.
+// You have a browser of one tab where you start on the homepage and you can visit another url, get back in the history number of steps or move forward in the history number of steps.
 
 class Node {
     public:
@@ -491,7 +517,7 @@ public:
 };
 
 
-// Q17. Given two integer arrays pushed and popped each with distinct values, return true if this could have been the result of a sequence of push and pop operations on an initially empty stack, or false otherwise.
+// Given two integer arrays pushed and popped each with distinct values, return true if this could have been the result of a sequence of push and pop operations on an initially empty stack, or false otherwise.
 
 class Solution {
 public:
@@ -509,7 +535,7 @@ public:
 };
 
 
-// Q18. Given a string s of '(' , ')' and lowercase English characters. Your task is to remove the minimum number of parentheses ( '(' or ')', in any positions ) so that the resulting parentheses string is valid and return any valid string.
+// Given a string s of '(' , ')' and lowercase English characters. Your task is to remove the minimum number of parentheses ( '(' or ')', in any positions ) so that the resulting parentheses string is valid and return any valid string.
 
 class Solution {
 public:
@@ -549,7 +575,7 @@ public:
 };
 
 
-// Q19. Given a rows x cols binary matrix filled with 0's and 1's, find the largest rectangle containing only 1's and return its area.
+// Given a rows x cols binary matrix filled with 0's and 1's, find the largest rectangle containing only 1's and return its area.
 
 class Solution {
 public:
@@ -609,7 +635,7 @@ public:
 };
 
 
-// Q20. You are given the head of a singly linked-list. The list can be represented as: L0 → L1 → … → Ln - 1 → Ln. Reorder the list to be on the following form: L0 → Ln → L1 → Ln - 1 → L2 → Ln - 2 → …. You may not modify the values in the list's nodes. Only nodes themselves may be changed.
+// You are given the head of a singly linked-list. The list can be represented as: L0 → L1 → … → Ln - 1 → Ln. Reorder the list to be on the following form: L0 → Ln → L1 → Ln - 1 → L2 → Ln - 2 → …. You may not modify the values in the list's nodes. Only nodes themselves may be changed.
 
 class Solution {
   public:
@@ -643,7 +669,7 @@ class Solution {
 };
 
 
-// Q21. Design a stack-like data structure to push elements to the stack and pop the most frequent element from the stack.
+// Design a stack-like data structure to push elements to the stack and pop the most frequent element from the stack.
 
 class Node {
 public:
@@ -717,7 +743,7 @@ public:
 };
 
 
-// Q22. Implement a last-in-first-out (LIFO) stack using only two queues. The implemented stack should support all the functions of a normal stack (push, top, pop, and empty).
+// Implement a last-in-first-out (LIFO) stack using only two queues. The implemented stack should support all the functions of a normal stack (push, top, pop, and empty).
 
 class StackUsingQueues {
 private:
