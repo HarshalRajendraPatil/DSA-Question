@@ -1,3 +1,28 @@
+// You are given a valid prefix expression consisting of binary operators and single-character operands. Your task is to convert it into a valid postfix expression.
+
+class Solution {
+public:
+    string prefixToPostfix(const string& s) {
+        string str = s;
+        reverse(str.begin(), str.end());
+        stack<string>st;
+        for(char c : str){
+            if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9')){
+                st.push(string{c});
+            }else {
+                string a = st.top();
+                st.pop();
+                string b = st.top();
+                st.pop();
+                string ans = a + b + c;
+                st.push(ans);
+            }
+        }
+        return st.top();
+    }
+};
+
+
 // Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
 
 class Solution {
