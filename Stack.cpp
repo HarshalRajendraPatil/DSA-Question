@@ -1,3 +1,74 @@
+// You are given an integer array nums. The range of a subarray of nums is the difference between the largest and smallest element in the subarray. Return the sum of all subarray ranges of nums.
+class Solution {
+public:
+    vector<int> nge(vector<int>& nums){
+        int n = nums.size();
+        vector<int> res(n);
+        stack<int>st;
+        for(int i = n-1; i >= 0; i--){
+            while(!st.empty() && nums[st.top()] < nums[i]) st.pop();
+            res[i] = st.empty() ? n : st.top();
+            st.push(i);
+        }
+        return res;
+    }
+
+    vector<int> pgee(vector<int>& nums){
+        int n = nums.size();
+        vector<int> res(n);
+        stack<int>st;
+        for(int i = 0; i < n; i++){
+            while(!st.empty() && nums[st.top()] <= nums[i]) st.pop();
+            res[i] = st.empty() ? -1 : st.top();
+            st.push(i);
+        }
+        return res;
+    }
+
+    vector<int> nse(vector<int>& nums){
+        int n = nums.size();
+        vector<int> res(n);
+        stack<int>st;
+        for(int i = n-1; i >= 0; i--){
+            while(!st.empty() && nums[st.top()] >= nums[i]) st.pop();
+            res[i] = st.empty() ? n : st.top();
+            st.push(i);
+        }
+        return res;
+    }
+
+    vector<int> psee(vector<int>& nums){
+        int n = nums.size();
+        vector<int> res(n);
+        stack<int>st;
+        for(int i = 0; i < n; i++){
+            while(!st.empty() && nums[st.top()] > nums[i]) st.pop();
+            res[i] = st.empty() ? -1 : st.top();
+            st.push(i);
+        }
+        return res;
+    }
+
+    long long subArrayRanges(vector<int>& nums) {
+        vector<int> ngeVec = nge(nums);
+        vector<int> pgeeVec = pgee(nums);
+        vector<int> nseVec = nse(nums);
+        vector<int> pseeVec = psee(nums);
+        long long sum = 0;
+    
+        for(int i = 0; i < nums.size(); i++){
+            long long leftSmall = i - pseeVec[i];
+            long long rightSmall = nseVec[i] - i;
+            long long leftBig = i - pgeeVec[i];
+            long long rightBig = ngeVec[i] - i;
+            
+            sum = sum + ((leftBig * rightBig) - (leftSmall * rightSmall)) * nums[i];
+        }
+        return sum;
+    }
+};
+
+
 // The next greater element of some element x in an array is the first greater element that is to the right of x in the same array. You are given two distinct 0-indexed integer arrays nums1 and nums2, where nums1 is a subset of nums2. For each 0 <= i < nums1.length, find the index j such that nums1[i] == nums2[j] and determine the next greater element of nums2[j] in nums2. If there is no next greater element, then the answer for this query is -1. Return an array ans of length nums1.length such that ans[i] is the next greater element as described above.
 
 class Solution {
