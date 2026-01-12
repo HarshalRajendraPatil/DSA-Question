@@ -1,3 +1,56 @@
+// Infix to Prefix Conversion
+
+class Solution {
+public:
+    int prece(char c){
+        if (c == '^') return 3;
+        if (c == '*' || c == '/') return 2;
+        if (c == '+' || c == '-') return 1;
+        return 0;
+    }
+    string infixToPrefix(const string& s) {
+        string str;
+        reverse(str.begin(), str.end());
+        string res;
+        stack<char>st;
+        for (char c: str){
+            if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9')){
+                res += c;
+            }else if (c == ')'){
+                st.push(c);
+            }
+            else if (c == '('){
+                while(!st.empty() && st.top() != ')'){
+                    res+=st.top();
+                    st.pop();
+                }
+                if(!st.empty()){
+                    st.pop();
+                }
+            }else {
+                if (st.empty()){
+                    st.push(c);
+                }else {
+                    while(!st.empty() && prece(c) <= prece(st.top())){
+                        res+=st.top();
+                        st.pop();
+                    }
+                    st.push(c);
+                }
+            }
+        }
+
+        while(!st.empty()){
+            res+=st.top();
+            st.pop();
+        }
+
+        reverse(res.begin(), res.end());
+        return res;
+    }
+};
+
+
 // You are given an integer array nums. The range of a subarray of nums is the difference between the largest and smallest element in the subarray. Return the sum of all subarray ranges of nums.
 class Solution {
 public:
