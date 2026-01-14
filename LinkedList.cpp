@@ -1,4 +1,19 @@
-// Q1. Given two linked lists head1 and head2 with distinct elements, determine the count of all distinct pairs from both lists whose sum equals the given value x.
+// There is a singly-linked list head and we want to delete a node node in it. You are given the node to be deleted node. You will not be given access to the first node of head.
+
+class Solution {
+public:
+    void deleteNode(ListNode* node) {
+        while(node->next->next != nullptr){
+            node->val = node->next->val;
+            node = node->next;
+        }
+        node->val = node->next->val;
+        node->next = nullptr;
+    }
+};
+
+
+// Given two linked lists head1 and head2 with distinct elements, determine the count of all distinct pairs from both lists whose sum equals the given value x.
 
 class Solution {
   public:
@@ -22,7 +37,7 @@ class Solution {
     }
 };
 
-// Q2. Given a singly linked list, your task is to remove every kth node from the linked list
+// Given a singly linked list, your task is to remove every kth node from the linked list
 
 class Solution {
   public:
@@ -49,7 +64,7 @@ class Solution {
     }
 };
 
-// Q3. Given a Singly Linked List, Delete all alternate nodes of the list ie delete all the nodes present in even positions.
+// Given a Singly Linked List, Delete all alternate nodes of the list ie delete all the nodes present in even positions.
 
 class Solution {
   public:
@@ -75,7 +90,7 @@ class Solution {
     }
 };
 
-// Q4. Given a head singly linked list of positive integers. The task is to check if the given linked list is palindrome or not.
+// Given a head singly linked list of positive integers. The task is to check if the given linked list is palindrome or not.
 
 class Solution {
   public:
@@ -120,7 +135,7 @@ class Solution {
     }
 };
 
-// Q5. Given a singly linked list, remove all nodes that have a node with a greater value anywhere to their right in the list. Return the head of the modified linked list.
+// Given a singly linked list, remove all nodes that have a node with a greater value anywhere to their right in the list. Return the head of the modified linked list.
 
 class Solution {
   public:
@@ -160,7 +175,7 @@ class Solution {
     }
 };
 
-// Q6. Given a head of the singly linked list. If a loop is present in the list then return the first node of the loop else return NULL.
+// Given a head of the singly linked list. If a loop is present in the list then return the first node of the loop else return NULL.
 
 class Solution {
   public:
@@ -185,7 +200,7 @@ class Solution {
     }
 };
 
-// Q7. Given a singly linked list and a number k. Find the (n/k)th element, where n is the number of elements in the linked list. We need to consider ceil value in case of decimals.
+// Given a singly linked list and a number k. Find the (n/k)th element, where n is the number of elements in the linked list. We need to consider ceil value in case of decimals.
 
 class Solution {
   public:
@@ -206,10 +221,7 @@ class Solution {
     }
 };
 
-// Q8. Given two strings, head1 and head2, represented as linked lists where each character is stored in a node's data field, complete the function compare() that mimics the behavior of strcmp(). Specifically, the function should return:
-// 0 if both strings are identical,
-// 1 if the first linked list is lexicographically greater, and
-// -1 if the second linked list is lexicographically greater.
+// Given two strings, head1 and head2, represented as linked lists where each character is stored in a node's data field, complete the function compare() that mimics the behavior of strcmp(). Specifically, the function should return: 0 if both strings are identical, 1 if the first linked list is lexicographically greater, and -1 if the second linked list is lexicographically greater.
 
 class Solution {
   public:
@@ -233,7 +245,7 @@ class Solution {
 };
 
 
-// Q9. Given two linked lists, which are sorted in non-decreasing order. The task is to merge them in such a way that the resulting list is in non-increasing order.
+// Given two linked lists, which are sorted in non-decreasing order. The task is to merge them in such a way that the resulting list is in non-increasing order.
 
 class Solution {
   public:
@@ -283,7 +295,7 @@ class Solution {
 };
 
 
-// Q10. Given the head of two sorted linked lists consisting of nodes respectively. The task is to merge both lists and return the head of the sorted merged list
+// Given the head of two sorted linked lists consisting of nodes respectively. The task is to merge both lists and return the head of the sorted merged list
 
 class Solution {
   public:
@@ -317,7 +329,7 @@ class Solution {
 };
 
 
-// Q11. Given a sorted doubly linked list and an element x, you need to insert the element x into the correct position in the sorted Doubly linked list(DLL).
+// Given a sorted doubly linked list and an element x, you need to insert the element x into the correct position in the sorted Doubly linked list(DLL).
 
 class Solution {
   public:
@@ -351,7 +363,7 @@ class Solution {
 };
 
 
-// Q12. Given two linked lists (L1 & L2), your task is to complete the function makeUnion(), which returns the union list of two linked lists. This union list should include all the distinct elements only and it should be sorted in ascending order.
+// Given two linked lists (L1 & L2), your task is to complete the function makeUnion(), which returns the union list of two linked lists. This union list should include all the distinct elements only and it should be sorted in ascending order.
 
 class Solution {
   public:
@@ -379,7 +391,7 @@ class Solution {
 };
 
 
-// Q13. Given a singly linked list's head. Your task is to complete the function alternatingSplitList() that splits the given linked list into two smaller lists. The sublists should be made from alternating elements from the original list.
+// Given a singly linked list's head. Your task is to complete the function alternatingSplitList() that splits the given linked list into two smaller lists. The sublists should be made from alternating elements from the original list.
 
 class Solution {
   public:
@@ -414,7 +426,7 @@ class Solution {
 };
 
 
-// Q14. Given a singly linked list. The link list represents a binary number, ie- it contains only 0s and 1s. Find its decimal equivalent.
+// Given a singly linked list. The link list represents a binary number, ie- it contains only 0s and 1s. Find its decimal equivalent.
 
 class Solution {
   public:
@@ -430,7 +442,7 @@ class Solution {
 };
 
 
-// Q15. Given a Circular linked list. The task is split into two Circular Linked lists. If there are an odd number of nodes in the given circular linked list then out of the resulting two halved lists, the first list should have one node more than the second list.
+// Given a Circular linked list. The task is split into two Circular Linked lists. If there are an odd number of nodes in the given circular linked list then out of the resulting two halved lists, the first list should have one node more than the second list.
 
 class Solution {
   public:
@@ -452,7 +464,7 @@ class Solution {
     }
 };
 
-// Q16. Given a singly linked list. The task is to swap elements in the linked list pairwise. For example, if the input list is 1 2 3 4, the resulting list after swaps will be 2 1 4 3.
+// Given a singly linked list. The task is to swap elements in the linked list pairwise. For example, if the input list is 1 2 3 4, the resulting list after swaps will be 2 1 4 3.
 
 class Solution {
   public:
@@ -482,7 +494,7 @@ class Solution {
     }
 };
 
-// Q17. Given elements as nodes of the two singly linked lists. The task is to multiply these two linked lists, say L1 and L2.
+// Given elements as nodes of the two singly linked lists. The task is to multiply these two linked lists, say L1 and L2.
 
 class solution {
   public:
@@ -506,7 +518,7 @@ class solution {
     }
 };
 
-// Q18. Given a linked list and a number k. You have to reverse the first part of the linked list with k nodes and the second part with n-k nodes.
+// Given a linked list and a number k. You have to reverse the first part of the linked list with k nodes and the second part with n-k nodes.
 
 class Solution {
   public:
@@ -545,7 +557,7 @@ class Solution {
     }
 };
 
-// Q19. Given the head of two singly linked lists, return the point where these two linked lists intersect.
+// Given the head of two singly linked lists, return the point where these two linked lists intersect.
 
 class Solution {
   public:
@@ -590,7 +602,7 @@ class Solution {
     }
 };
 
-// Q20. Given the head of a singly linked list, your task is to left rotate the linked list k times.
+// Given the head of a singly linked list, your task is to left rotate the linked list k times.
 
 class Solution {
   public:
@@ -622,7 +634,7 @@ class Solution {
 };
 
 
-// Q21. Given the head of a linked list, the task is to find the middle. For example, the middle of 1-> 2->3->4->5 is 3. If there are two middle nodes (even count), return the second middle.
+// Given the head of a linked list, the task is to find the middle. For example, the middle of 1-> 2->3->4->5 is 3. If there are two middle nodes (even count), return the second middle.
 
 class Solution {
   public:
@@ -648,7 +660,7 @@ class Solution {
 };
 
 
-// Q22. Given an array of integer arr. Your task is to construct the linked list from arr & return the head of the linked list.
+// Given an array of integer arr. Your task is to construct the linked list from arr & return the head of the linked list.
 
 class Solution {
   public:
