@@ -1,3 +1,40 @@
+// Given the head of a singly linked list, group all the nodes with odd indices together followed by the nodes with even indices, and return the reordered list.
+
+class Solution {
+public:
+    ListNode* oddEvenList(ListNode* head) {
+        if (head == nullptr) return nullptr;
+        if (head->next == nullptr || head->next->next == nullptr) return head;
+        ListNode* tail = head;
+        ListNode* temp = head;
+        int cnt = 0;
+        while(tail->next != nullptr){
+            tail = tail->next;
+            cnt++;
+        }
+        int swaps = cnt/2;
+        while(swaps > 0){
+            ListNode* next = temp->next;
+            temp->next = next->next;
+            next->next = nullptr;
+            tail->next = next;
+            temp = temp->next;
+            tail = next;
+            swaps--;
+        }
+        if(cnt % 2 != 0){
+            ListNode* next = temp->next;
+            temp->next = next->next;
+            next->next = nullptr;
+            tail->next = next;
+            temp = temp->next;
+            tail = next;
+        }
+        return head;;
+    }
+};
+
+
 // There is a singly-linked list head and we want to delete a node node in it. You are given the node to be deleted node. You will not be given access to the first node of head.
 
 class Solution {
