@@ -1,3 +1,37 @@
+// Given the head of a linked list, remove the nth node from the end of the list and return its head.
+
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        if (head == nullptr) return nullptr;
+        int length = 0;
+        ListNode* temp = head;
+        while(temp != nullptr){
+            temp = temp->next;
+            length++;
+        }
+        if (n == length){
+            ListNode* temp = head;
+            head = head->next;
+            delete temp;
+            return head;
+        }
+        int idx = length - n;
+        temp = head;
+        ListNode* prev = head;
+        while(idx > 0){
+            idx--;
+            prev = temp;
+            temp = temp->next;
+        }
+        prev->next = temp->next;
+        temp->next = nullptr;
+        delete temp;
+        return head;
+    }
+};
+
+
 // Given the head of a singly linked list, group all the nodes with odd indices together followed by the nodes with even indices, and return the reordered list.
 
 class Solution {
