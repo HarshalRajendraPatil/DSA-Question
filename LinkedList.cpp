@@ -1,3 +1,50 @@
+// Given the head of a singly linked list consisting of only 0, 1 or 2. Sort the given linked list and return the head of the modified list.
+
+class Solution {
+public:
+    ListNode* sortList(ListNode* head) {
+        if (!head || !head->next) return head;
+
+        ListNode* zeroHead = new ListNode(-1);
+        ListNode* oneHead = new ListNode(-1);
+        ListNode* twoHead = new ListNode(-1);
+
+        ListNode* zero = zeroHead;
+        ListNode* one = oneHead;
+        ListNode* two = twoHead;
+        ListNode* temp = head;
+
+        while (temp != nullptr) {
+            if (temp->val == 0) {
+                zero->next = temp;
+                zero = zero->next;
+            } else if (temp->val == 1) {
+                one->next = temp;
+                one = one->next;
+            } else {
+                two->next = temp;
+                two = two->next;
+            }
+            temp = temp->next;
+        }
+
+        one->next = twoHead->next; 
+        
+        zero->next = (oneHead->next != nullptr) ? oneHead->next : twoHead->next;
+        
+        two->next = nullptr;
+
+        head = zeroHead->next;
+        
+        delete zeroHead;
+        delete oneHead;
+        delete twoHead;
+        
+        return head;
+    }
+};
+
+
 // Given the head of a linked list, remove the nth node from the end of the list and return its head.
 
 class Solution {
