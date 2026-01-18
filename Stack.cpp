@@ -1,3 +1,27 @@
+// Prefix to Infix Conversion
+
+class Solution {
+public:
+    string prefixToInfix(string s) {
+        reverse(s.begin(), s.end());
+        stack<string>st;
+        for(char c: s){
+            if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9')){
+                st.push(string{c});
+            }else {
+                string a = st.top();
+                st.pop();
+                string b = st.top();
+                st.pop();
+                string ans = "(" + a + c + b + ")";
+                st.push(ans);
+            }
+        }
+        return st.top();
+    }
+};
+
+
 // Postfix to Infix Conversion
 
 class Solution {
