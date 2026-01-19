@@ -1,3 +1,34 @@
+// Given the head of a doubly linked list and an integer target. Delete all nodes in the linked list with the value target and return the head of the modified linked list.
+
+class Solution {
+public:
+    ListNode * deleteAllOccurrences(ListNode* head, int target) {
+        if (head == nullptr) return head;
+        while(head != nullptr && head->val == target){
+            ListNode* temp = head;
+            head = head->next;
+            delete temp;
+        } 
+        if (head == nullptr) return head;
+        head->prev = nullptr;
+        ListNode* temp = head->next;
+        while(temp != nullptr){
+            if (temp->val == target){
+                ListNode* prev = temp->prev;
+                ListNode* next = temp->next;
+                if (prev != nullptr) prev->next = next;
+                if (next != nullptr) next->prev = prev;
+                delete temp;
+                temp = next;
+            }else {
+                temp = temp->next;
+            }
+        }
+        return head;
+    }
+};
+
+
 // Given the head of a singly linked list consisting of only 0, 1 or 2. Sort the given linked list and return the head of the modified list.
 
 class Solution {
