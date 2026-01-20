@@ -1,3 +1,36 @@
+// A linked list of length n is given such that each node contains an additional random pointer, which could point to any node in the list, or null. Construct a deep copy of the list. The deep copy should consist of exactly n brand new nodes, where each new node has its value set to the value of its corresponding original node. Both the next and random pointer of the new nodes should point to new nodes in the copied list such that the pointers in the original list and copied list represent the same list state. None of the pointers in the new list should point to nodes in the original list.
+
+class Solution {
+public:
+    Node* copyRandomList(Node* head) {
+        if (head == nullptr) return head;
+        unordered_map<Node*, Node*>mpp;
+        Node* newHead = new Node(-1);
+        Node* temp = head;
+        Node* temp1 = newHead;
+        while(temp != nullptr){
+            Node* newNode = new Node(temp->val);
+            mpp[temp] = newNode;
+            temp1->next = newNode;
+            temp1 = newNode;
+            temp = temp->next;
+        }
+        temp = head;
+        temp1 = newHead->next;
+        while(temp!=nullptr){
+            if (temp->random != nullptr){
+                temp1->random = mpp[temp->random];
+            }else {
+                temp1->random = nullptr;
+            }
+            temp = temp->next;
+            temp1 = temp1->next;
+        }
+        return newHead->next;
+    }
+};
+
+
 // Given the head of a doubly linked list and an integer target. Delete all nodes in the linked list with the value target and return the head of the modified linked list.
 
 class Solution {
