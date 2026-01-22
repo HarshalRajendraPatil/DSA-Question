@@ -1,3 +1,46 @@
+// Interleave the First Half of the Queue with Second Half
+
+class Solution {
+public:
+    void rearrangeQueue(queue<int> &q) {
+        int n = q.size();
+        if (n == 0) return;
+        
+        stack<int> s;
+        int half = n / 2;
+
+        for(int i = 0; i < half; i++){
+            s.push(q.front());
+            q.pop();
+        }
+
+        while(!s.empty()){
+            q.push(s.top());
+            s.pop();
+        }
+
+        for(int i = 0; i < half; i++){
+            q.push(q.front());
+            q.pop();
+        }
+
+        for(int i = 0; i < half; i++){
+            s.push(q.front());
+            q.pop();
+        }
+
+        // Step 5: Interleave
+        while(!s.empty()){
+            q.push(s.top());
+            s.pop();
+            
+            q.push(q.front());
+            q.pop();
+        }
+    }
+};
+
+
 // Q1. Implement a first in first out (FIFO) queue using only two stacks. The implemented queue should support all the functions of a normal queue (push, peek, pop, and empty).
 
 class MyQueue {
