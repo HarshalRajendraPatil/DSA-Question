@@ -1,3 +1,24 @@
+// Design an algorithm that collects daily price quotes for some stock and returns the span of that stock's price for the current day.
+
+class StockSpanner {
+public:
+    stack<pair<int, int>>st;
+    StockSpanner() {
+        
+    }
+    
+    int next(int price) {
+        int cnt = 1;
+        while(!st.empty() && st.top().first <= price){
+            cnt+=st.top().second;
+            st.pop();
+        }
+        st.push({price, cnt});
+        return cnt;
+    }
+};
+
+
 // Prefix to Infix Conversion
 
 class Solution {
