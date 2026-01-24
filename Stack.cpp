@@ -1,3 +1,113 @@
+// LFU Cache
+
+struct Node {
+    int key, val, freq;
+    Node *next, *prev;
+    Node(int k, int v)
+        : key(k), val(v), freq(1), next(nullptr), prev(nullptr) {}
+};
+
+struct List {
+    Node *head, *tail;
+    int size;
+    List() {
+        head = new Node(-1, -1);
+        tail = new Node(-1, -1);
+        head->next = tail;
+        tail->prev = head;
+        size = 0;
+    }
+
+    void addFront(Node* node) {
+        Node* temp = head->next;
+        node->next = temp;
+        node->prev = head;
+        head->next = node;
+        temp->prev = node;
+        size++;
+    }
+
+    void removeNode(Node* node) {
+        Node* delPrev = node->prev;
+        Node* delNext = node->next;
+        delPrev->next = delNext;
+        delNext->prev = delPrev;
+        size--;
+    }
+};
+
+class LFUCache {
+    unordered_map<int, Node*> keyNode;
+    unordered_map<int, List*> freqList;
+    int maxSize;
+    int curSize;
+    int minFreq;
+
+public:
+    LFUCache(int capacity) {
+        maxSize = capacity;
+        curSize = 0;
+        minFreq = 0;
+    }
+
+    void updateFreqList(Node* node) {
+        freqList[node->freq]->removeNode(node);
+
+        if (node->freq == minFreq && freqList[node->freq]->size == 0) {
+            minFreq++;
+        }
+
+        node->freq++;
+        if (freqList.find(node->freq) == freqList.end()) {
+            freqList[node->freq] = new List();
+        }
+        freqList[node->freq]->addFront(node);
+    }
+
+    int get(int key) {
+        if (keyNode.find(key) == keyNode.end())
+            return -1;
+
+        Node* node = keyNode[key];
+        updateFreqList(node);
+        return node->val;
+    }
+
+    void put(int key, int value) {
+        if (maxSize == 0)
+            return;
+
+        if (keyNode.find(key) != keyNode.end()) {
+            Node* node = keyNode[key];
+            node->val = value;
+            updateFreqList(node);
+            return;
+        }
+
+        if (curSize == maxSize) {
+            List* minFreqList = freqList[minFreq];
+            Node* nodeToEvict = minFreqList->tail->prev;
+
+            keyNode.erase(nodeToEvict->key);
+            minFreqList->removeNode(nodeToEvict);
+            curSize--;
+            delete nodeToEvict;
+        }
+
+        curSize++;
+        minFreq = 1;
+
+        Node* newNode = new Node(key, value);
+        keyNode[key] = newNode;
+
+        if (freqList.find(minFreq) == freqList.end()) {
+            freqList[minFreq] = new List();
+        }
+        freqList[minFreq]->addFront(newNode);
+    }
+};
+
+
 // Design an algorithm that collects daily price quotes for some stock and returns the span of that stock's price for the current day.
 
 class StockSpanner {
