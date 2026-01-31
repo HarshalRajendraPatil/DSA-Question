@@ -1,3 +1,26 @@
+// Given a sorted array of nums and an integer x, write a program to find the upper bound of x. The upper bound of x is defined as the smallest index i such that nums[i] > x. If no such index is found, return the size of the array.
+
+class Solution{
+public:
+    int upperBound(vector<int> &nums, int x){
+        int n = nums.size();
+        int ans = n;
+        int low = 0;
+        int high = n - 1;
+        while(low <= high){
+            int mid = low + (high - low) / 2;
+            if (nums[mid]<=x){
+                low = mid+1;
+            }else {
+                ans = mid;
+                high = mid - 1;
+            }
+        }
+        return ans;
+    }
+};
+
+
 // Given a sorted array of nums and an integer x, write a program to find the lower bound of x. The lower bound algorithm finds the first and smallest index in a sorted array where the value at that index is greater than or equal to a given key i.e. x. If no such index is found, return the size of the array.
 
 class Solution{
