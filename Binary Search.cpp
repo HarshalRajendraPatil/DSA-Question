@@ -1,3 +1,54 @@
+// You are given an integer array bloomDay, an integer m and an integer k. You want to make m bouquets. To make a bouquet, you need to use k adjacent flowers from the garden. The garden consists of n flowers, the ith flower will bloom in the bloomDay[i] and then can be used in exactly one bouquet. Return the minimum number of days you need to wait to be able to make m bouquets from the garden. If it is impossible to make m bouquets return -1.
+
+class Solution {
+public:
+    int getBouquets(const vector<int>& bloomDay, int mid, int k) {
+        int bouquets = 0;
+        int count = 0;
+        
+        for (int bloom : bloomDay) {
+            if (bloom <= mid) {
+                count++;
+            } else {
+                count = 0;
+            }
+            
+            if (count == k) {
+                bouquets++;
+                count = 0;
+            }
+        }
+        return bouquets;
+    }
+
+    int minDays(vector<int>& bloomDay, int m, int k) {
+        long long val = (long long)m * (long long)k;
+        if (val > bloomDay.size()) return -1;
+        
+        int low = INT_MAX;
+        int high = INT_MIN;
+        
+        for(int num : bloomDay) {
+            high = max(high, num);
+            low = min(low, num);
+        }
+        
+        int ans = -1;
+        while(low <= high){
+            int mid = low + (high - low) / 2;
+            
+            if (getBouquets(bloomDay, mid, k) >= m) {
+                ans = mid;
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return low;
+    }
+};
+
+
 // Given two numbers N and M, find the Nth root of M. The Nth root of a number M is defined as a number X such that when X is raised to the power of N, it equals M. If the Nth root is not an integer, return -1.
 
 class Solution {
