@@ -1,3 +1,26 @@
+// Given an array arr of positive integers sorted in a strictly increasing order, and an integer k. Return the kth positive integer that is missing from this array.
+
+class Solution {
+public:
+    int findKthPositive(vector<int>& arr, int k) {
+        int low = 0;
+        int high = arr.size() - 1;
+        
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            int missing = arr[mid] - (mid + 1);
+            
+            if (missing < k) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+        return low + k;
+    }
+};
+
+
 // You are given an integer array bloomDay, an integer m and an integer k. You want to make m bouquets. To make a bouquet, you need to use k adjacent flowers from the garden. The garden consists of n flowers, the ith flower will bloom in the bloomDay[i] and then can be used in exactly one bouquet. Return the minimum number of days you need to wait to be able to make m bouquets from the garden. If it is impossible to make m bouquets return -1.
 
 class Solution {
