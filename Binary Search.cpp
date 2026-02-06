@@ -1,3 +1,40 @@
+// Given an array nums of size n, which denotes the positions of stalls, and an integer k, which denotes the number of aggressive cows, assign stalls to k cows such that the minimum distance between any two cows is the maximum possible. Find the maximum possible minimum distance.
+
+class Solution {
+public:
+    bool canPlace(vector<int>& nums, int minDistance, int cows){
+        int n = nums.size();
+        int cowsPlace = 1;
+        int last = nums[0];
+        for(int i = 1; i < n; i++){
+            if (nums[i] - last >= minDistance){
+                cowsPlace++;
+                last = nums[i];
+            }
+            if (cowsPlace >= cows) return true;
+        }
+        return false;
+    }
+
+    int aggressiveCows(vector<int> &nums, int k) {
+        int n = nums.size();
+        sort(nums.begin(), nums.end());
+        int low = 1;
+        int high = nums[n-1] - nums[0];
+
+        while(low <= high){
+            int mid = low + (high - low) / 2;
+            if (canPlace(nums, mid, k)){
+                low = mid + 1;
+            }else {
+                high = mid - 1;
+            }
+        }
+        return high;
+    }
+};
+
+
 // Given an array arr of positive integers sorted in a strictly increasing order, and an integer k. Return the kth positive integer that is missing from this array.
 
 class Solution {
