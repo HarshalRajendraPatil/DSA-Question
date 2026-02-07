@@ -1,3 +1,52 @@
+// You are given A painters and an array C of N integers where C[i] denotes the length of the ith board. Each painter takes B units of time to paint 1 unit of board. You must assign boards to painters such that: Each painter paints only contiguous segments of boards. No board can be split between painters. The goal is to minimize the time to paint all boards. Return the minimum time required to paint all boards modulo 10000003
+
+class Solution {
+public:
+    bool isPossible(const vector<int>& boards, long long maxLen, int painters) {
+        int count = 1;
+        long long currentSum = 0;
+        
+        for(int len : boards) {
+            if (len > maxLen) return false; 
+            
+            if (currentSum + len > maxLen) {
+                count++;
+                currentSum = len;
+                if (count > painters) return false;
+            } else {
+                currentSum += len;
+            }
+        }
+        return true;
+    }
+
+    int paint(int A, int B, vector<int>& C) {
+        int n = C.size();
+        long long low = 0;
+        long long high = 0;
+        
+        for(int len : C) {
+            low = max(low, (long long)len);
+            high += len;
+        }
+
+        long long ans = high;
+        while(low <= high) {
+            long long mid = low + (high - low) / 2;
+            
+            if (isPossible(C, mid, A)) {
+                ans = mid; 
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+
+        return (ans % 10000003 * B % 10000003) % 10000003;
+    }
+};
+
+
 // Given an array nums of size n, which denotes the positions of stalls, and an integer k, which denotes the number of aggressive cows, assign stalls to k cows such that the minimum distance between any two cows is the maximum possible. Find the maximum possible minimum distance.
 
 class Solution {
