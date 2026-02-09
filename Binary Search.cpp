@@ -1,3 +1,42 @@
+// You are given an m x n integer matrix matrix with the following two properties: Each row is sorted in non-decreasing order. The first integer of each row is greater than the last integer of the previous row. Given an integer target, return true if target is in matrix or false otherwise.
+
+class Solution {
+public:
+    bool isPresent(vector<int>& nums, int k){
+        int n = nums.size();
+        int low = 0;
+        int high = n - 1;
+        while(low <= high){
+            int mid = low + (high - low) / 2;
+            if (nums[mid] == k) return true;
+            else if (nums[mid] < k) low = mid + 1;
+            else high = mid - 1;
+        }
+        return false;
+    }
+
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        int n = matrix.size();
+        int m = matrix[0].size();
+
+        int low = 0;
+        int high = n - 1;
+
+        while(low <= high){
+            int mid = low + (high - low) / 2;
+            if (matrix[mid][0] > target){
+                high = mid - 1;
+            }else if (matrix[mid][m-1] < target){
+                low = mid + 1;
+            }else {
+                return isPresent(matrix[mid], target);
+            }
+        }
+        return false;
+    }
+};
+
+
 // You are given A painters and an array C of N integers where C[i] denotes the length of the ith board. Each painter takes B units of time to paint 1 unit of board. You must assign boards to painters such that: Each painter paints only contiguous segments of boards. No board can be split between painters. The goal is to minimize the time to paint all boards. Return the minimum time required to paint all boards modulo 10000003
 
 class Solution {
