@@ -1,3 +1,43 @@
+// A peak element in a 2D grid is an element that is strictly greater than all of its adjacent neighbors to the left, right, top, and bottom. Given a 0-indexed m x n matrix mat where no two adjacent cells are equal, find any peak element mat[i][j] and return the length 2 array [i,j]. You may assume that the entire matrix is surrounded by an outer perimeter with the value -1 in each cell.
+
+class Solution {
+public:
+    vector<int> findPeakGrid(vector<vector<int>>& mat) {
+        int n = mat.size();
+        int m = mat[0].size();
+        
+        int low = 0;
+        int high = m - 1;
+        
+        while(low <= high){
+            int midCol = low + (high - low) / 2;
+            
+            int maxRow = 0;
+            for(int i = 0; i < n; i++){
+                if (mat[i][midCol] > mat[maxRow][midCol]){
+                    maxRow = i;
+                }
+            }
+            
+            int leftVal = (midCol - 1 >= 0) ? mat[maxRow][midCol - 1] : -1;
+            int rightVal = (midCol + 1 < m) ? mat[maxRow][midCol + 1] : -1;
+            int currVal = mat[maxRow][midCol];
+            
+            if (currVal > leftVal && currVal > rightVal){
+                return {maxRow, midCol};
+            }
+            else if (leftVal > currVal){
+                high = midCol - 1;
+            }
+            else {
+                low = midCol + 1;
+            }
+        }
+        return {-1, -1};
+    }
+};
+
+
 // You are given an m x n integer matrix matrix with the following two properties: Each row is sorted in non-decreasing order. The first integer of each row is greater than the last integer of the previous row. Given an integer target, return true if target is in matrix or false otherwise.
 
 class Solution {
