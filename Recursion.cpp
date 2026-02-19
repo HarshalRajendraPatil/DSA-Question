@@ -1,3 +1,33 @@
+// Given an integer n, return the total number of good digit strings of length n. Since the answer may be large, return it modulo 10^9 + 7.
+
+class Solution {
+    int MOD = 1000000007;
+public:
+    long long power(long long x, long long y) {
+        long long res = 1;
+        x = x % MOD;
+        if (x == 0) return 0;
+
+        while (y > 0) {
+            if (y % 2 == 1) {
+                res = (res * x) % MOD;
+            }
+            y = y / 2;
+            x = (x * x) % MOD;
+        }
+        return res;
+    }
+
+    int countGoodNumbers(long long n) {
+        long long countOf4s = n / 2;
+        long long countOf5s = n - countOf4s;
+        
+        long long ans = (power(4, countOf4s) * power(5, countOf5s)) % MOD;
+        return (int)ans;
+    }
+};
+
+
 // Implement the myAtoi(string s) function, which converts a string to a 32-bit signed integer.
 
 class Solution {
