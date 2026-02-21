@@ -1,3 +1,27 @@
+// Implement [pow(x, n)](http://www.cplusplus.com/reference/valarray/pow/), which calculates x raised to the power n (i.e., xn).
+
+class Solution {
+public:
+    double myPow(double x, int n) {
+        long long N = n;
+        if (N < 0) {
+            return 1.0 / solve(x, -N);
+        }
+        return solve(x, N);
+    }
+
+    double solve(double x, long long n) {
+        if (n == 0) return 1.0;
+        double half = solve(x, n / 2);
+        if (n % 2 == 0) {
+            return half * half;
+        }else {
+            return x * half * half;
+        }
+    }
+};
+
+
 // You are given a stack of integers. Your task is to sort the stack in descending order using recursion, such that the top of the stack contains the greatest element. You are not allowed to use any loop-based sorting methods (e.g., quicksort, mergesort). You may only use recursive operations and the standard stack operations (push, pop, peek/top, and isEmpty).
 
 class Solution {
