@@ -1,3 +1,24 @@
+// You are given a string num, representing a large integer. Return the largest-valued odd integer (as a string) that is a non-empty substring of num, or an empty string "" if no odd integer exists.
+
+class Solution {
+public:
+    string largestOddNumber(string num) {
+        int n = num.size();
+        int idx = n-1;
+        string res = "";
+        while(idx >= 0){
+            int digit = num[idx] - '0';
+            if (digit % 2 != 0) break;
+            idx--;
+        }
+        for(int i = 0; i <= idx; i++){
+            res += num[i];
+        }
+        return res;
+    }
+};
+
+
 // Return a string of the words in reverse order concatenated by a single space.
 
 class Solution {
