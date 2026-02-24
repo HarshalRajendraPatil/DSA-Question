@@ -1,3 +1,24 @@
+// Given two strings s and t, return true if t is an anagram of s, and false otherwise.
+
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        if(s.size() != t.size()) return false;
+        unordered_map<char, int>mpp;
+        for(char c : s)mpp[c]++;
+        for(char c : t){
+            if(mpp.find(c) == mpp.end()) return false;
+            if(mpp[c] == 0) return false;
+            mpp[c]--;
+        }
+        for(auto [c,i] : mpp){
+            if (i != 0) return false;
+        }
+        return true;
+    }
+};
+
+
 // You are given a string num, representing a large integer. Return the largest-valued odd integer (as a string) that is a non-empty substring of num, or an empty string "" if no odd integer exists.
 
 class Solution {
