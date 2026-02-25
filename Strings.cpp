@@ -1,3 +1,34 @@
+// Given a string s, sort it in decreasing order based on the frequency of the characters. The frequency of a character is the number of times it appears in the string. Return the sorted string. If there are multiple answers, return any of them.
+
+class Solution {
+public:
+    typedef pair<char, int> P;
+    string frequencySort(string s) {
+        vector<P> vec(123);
+        for(char c: s){
+            int freq = vec[c].second;
+            vec[c] = {c, freq + 1};
+        }
+        auto lambda = [&](P&p1, P&p2){
+            return p2.second < p1.second;
+        };
+
+        sort(vec.begin(), vec.end(), lambda);
+        string res = "";
+
+        for(int i = 0; i < 123; i++){
+            if (vec[i].second > 0){
+                char c = vec[i].first;
+                int freq = vec[i].second;
+                string temp = string(freq, c);
+                res+=temp;
+            }
+        }
+        return res;
+    }
+};
+
+
 // Given two strings s and t, return true if t is an anagram of s, and false otherwise.
 
 class Solution {
