@@ -1,3 +1,29 @@
+// Given a roman numeral, convert it to an integer.
+
+class Solution {
+public:
+    int romanToInt(string s) {
+        unordered_map<char, int> mpp = {
+            {'I', 1}, {'V', 5}, {'X', 10}, {'L', 50}, 
+            {'C', 100}, {'D', 500}, {'M', 1000}
+        };
+        
+        int number = 0;
+        int n = s.size();
+
+        for (int i = 0; i < n; i++) {
+            // Check if current value is smaller than the next value
+            if (i < n - 1 && mpp[s[i]] < mpp[s[i+1]]) {
+                number -= mpp[s[i]];
+            } else {
+                number += mpp[s[i]];
+            }
+        }
+        return number;
+    }
+};
+
+
 // Given a string s, sort it in decreasing order based on the frequency of the characters. The frequency of a character is the number of times it appears in the string. Return the sorted string. If there are multiple answers, return any of them.
 
 class Solution {
