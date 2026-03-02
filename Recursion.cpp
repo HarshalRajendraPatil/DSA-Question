@@ -1,3 +1,14 @@
+// You are given a number n. You need to find the sum of digits of n.
+
+class Solution {
+  public:
+    int sumOfDigits(int n) {
+        if (n == 0) return 0;
+        return n % 10 + sumOfDigits(n/10);
+    }
+};
+
+
 // Implement [pow(x, n)](http://www.cplusplus.com/reference/valarray/pow/), which calculates x raised to the power n (i.e., xn).
 
 class Solution {
