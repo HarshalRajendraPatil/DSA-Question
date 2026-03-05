@@ -1,3 +1,31 @@
+// Given an integer n, return the first n elements of [Recaman’s sequence](http://mathworld.wolfram.com/RecamansSequence.html).
+
+class Solution {
+  public:
+    void getSeries(vector<int>& nums, int n, unordered_set<int>&st){
+        if (n <= 0) return;
+        int size = nums.size();
+        
+        int num = nums[size - 1] - size;
+        if (num > 0 && st.find(num) == st.end()){
+            nums.push_back(num);
+            st.insert(num);
+        }else{
+            nums.push_back(nums[size-1]+size);
+            st.insert(nums[size-1]+size);
+        }
+        
+        getSeries(nums, n-1, st);
+    }
+    vector<int> recamanSequence(int n) {
+        vector<int> res = {0};
+        unordered_set<int>st = {0};
+        getSeries(res, n-1, st);
+        return res;
+    }
+};
+
+
 // You are playing a game with n people standing in a circle, numbered from 1 to n. Starting from person 1, every kth person is eliminated in a circular fashion. The process continues until only one person remains. Given integers n and k, return the position (1-based index) of the person who will survive.
 
 class Solution {
