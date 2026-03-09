@@ -1,3 +1,29 @@
+// Given an array of integers nums of unique elements. Return all possible subsets (power set) of the array.
+
+class Solution {
+public:	
+    vector<vector<int>> generateSequence(vector<vector<int>>& nums, vector<int> seq, int cur, int size, vector<int> ori){
+        if (cur == size){
+            nums.push_back(seq);
+            return nums;
+        }
+        seq.push_back(ori[cur]);
+        generateSequence(nums, seq, cur+1, size, ori);
+        seq.pop_back();
+        generateSequence(nums, seq, cur+1, size, ori);
+        return nums;
+    }
+
+    vector<vector<int> > powerSet(vector<int>& nums) {
+        vector<vector<int>>res;
+        vector<int> seq;
+        int cur = 0;
+        generateSequence(res, seq, cur, nums.size(), nums);
+        return res;
+    }
+};
+
+
 // Alice and Bob take turns playing a game, with Alice starting first. Initially, there is a number n on the chalkboard. On each player's turn, that player makes a move consisting of: Choosing any x with 0 < x < n  and n % x == 0. Replacing the number n on the chalkboard with n - x. Also, if a player cannot make a move, they lose the game. Return true if and only if Alice wins the game, assuming both players play optimally.
 
 class Solution {
