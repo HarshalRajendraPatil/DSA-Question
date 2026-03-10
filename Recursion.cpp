@@ -1,3 +1,28 @@
+// Given an array of distinct integers candidates and a target integer target, return a list of all unique combinations of candidates where the chosen numbers sum to target. You may return the combinations in any order.
+
+class Solution {
+public:
+    void findCombinationSum(vector<vector<int>>& res, vector<int>& seq, int curSum, int idx, int target, vector<int>& candidates){
+        if (idx == candidates.size() || curSum >= target){
+            if (curSum == target) res.push_back(seq);
+            return;
+        }
+        seq.push_back(candidates[idx]);
+        findCombinationSum(res, seq, curSum + candidates[idx], idx, target, candidates);
+        seq.pop_back();
+        findCombinationSum(res, seq, curSum, idx + 1, target, candidates);
+        return;
+    }
+
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<vector<int>> res;
+        vector<int>seq;
+        findCombinationSum(res, seq, 0, 0, target, candidates);
+        return res;
+    }
+};
+
+
 // Given an array of integers nums of unique elements. Return all possible subsets (power set) of the array.
 
 class Solution {
