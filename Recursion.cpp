@@ -1,3 +1,24 @@
+// Given an array nums of n integers. Return array of sum of all subsets of the array nums.
+
+class Solution {
+  public:
+    void getSubSetSum(vector<int>&res, int idx, int curSum, vector<int>& nums){
+        if (idx == nums.size()){
+            res.push_back(curSum);
+            return;
+        }
+        getSubSetSum(res, idx+1, curSum+nums[idx], nums);
+        getSubSetSum(res, idx+1, curSum, nums);
+    }
+
+    vector<int> subsetSums(vector<int>& nums) {
+        vector<int>res;
+        getSubSetSum(res, 0, 0, nums);
+        return res;
+    }
+};
+
+
 // Given an array of distinct integers candidates and a target integer target, return a list of all unique combinations of candidates where the chosen numbers sum to target. You may return the combinations in any order.
 
 class Solution {
