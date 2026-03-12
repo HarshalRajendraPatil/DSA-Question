@@ -1,3 +1,32 @@
+// Given a string containing digits from 2-9 inclusive, return all possible letter combinations that the number could represent. Return the answer in any order.
+
+class Solution {
+public:
+    void getCombination(vector<string>&res, string cur, string digits, int idx, vector<string>&mapping){
+        if (idx == digits.size()){
+            res.push_back(cur);
+            return;
+        }
+        int digit = digits[idx] - '0';
+        string letters = mapping[digit];
+
+        for(int i = 0; i < letters.size(); i++){
+            cur+=letters[i];
+            getCombination(res, cur, digits, idx + 1, mapping);
+            cur.pop_back();
+        }
+    }
+
+    vector<string> letterCombinations(string digits) {
+        vector<string>res;
+        vector<string>mapping = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+        string current = "";
+        getCombination(res, current, digits, 0, mapping);
+        return res;
+    }
+};
+
+
 // Given an array nums of n integers. Return array of sum of all subsets of the array nums.
 
 class Solution {
