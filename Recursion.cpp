@@ -1,3 +1,30 @@
+// Find all valid combinations of k numbers that sum up to n such that the following conditions are true: Only numbers 1 through 9 are used. Each number is used at most once. Return a list of all possible valid combinations. The list must not contain the same combination twice, and the combinations may be returned in any order.
+
+class Solution {
+public:
+    void getCombination(vector<vector<int>>&res, vector<int>&seq, vector<int>&nums, int idx, int size, int target, int curSum){
+        if (seq.size() == size || idx == nums.size() || curSum >= target){
+            if (curSum == target && seq.size() == size){
+                res.push_back(seq);
+            }
+            return;
+        }
+        seq.push_back(nums[idx]);
+        getCombination(res, seq, nums, idx+1, size, target, curSum+nums[idx]);
+        seq.pop_back();
+        getCombination(res, seq, nums, idx+1, size, target, curSum);
+    }
+
+    vector<vector<int>> combinationSum3(int k, int n) {
+        vector<int> nums = {1,2,3,4, 5, 6, 7, 8, 9};
+        vector<vector<int>>res;
+        vector<int>seq;
+        getCombination(res, seq, nums, 0, k, n, 0);
+        return res;
+    }
+};
+
+
 // Given a string containing digits from 2-9 inclusive, return all possible letter combinations that the number could represent. Return the answer in any order.
 
 class Solution {
