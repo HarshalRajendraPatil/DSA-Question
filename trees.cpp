@@ -1,3 +1,27 @@
+// Given the root of a binary tree, return its maximum depth.
+
+class Solution {
+public:
+    int maxDepth(TreeNode* root) {
+        if (root == nullptr) return 0;
+        int depth = 0;
+        queue<TreeNode*> q;
+        q.push(root);
+        while(!q.empty()){
+            int n = q.size();
+            for(int i = 0;i < n; i++){
+                TreeNode* top = q.front();
+                q.pop();
+                if (top->left != nullptr) q.push(top->left);
+                if (top->right != nullptr) q.push(top->right);
+            }
+            depth++;
+        }
+        return depth;
+    }
+};
+
+
 // Given the root of a binary tree, return the level order traversal of its nodes' values. (i.e., from left to right, level by level).
 
 class Solution {
