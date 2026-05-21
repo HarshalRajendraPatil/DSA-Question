@@ -1,3 +1,56 @@
+// Shortest Path in an Undirected Graph
+class Solution {
+  public:
+    vector<int> shortestPath(int n, int m, vector<vector<int>>& edges) {
+        vector<int>distance(n+1, 1e9);
+        vector<vector<pair<int, int>>>adj(n+1);
+        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>>pq;
+        vector<int>parent(n+1);
+        vector<int>ans;
+        
+        for(auto edge: edges){
+            int u = edge[0];
+            int v = edge[1];
+            int w = edge[2];
+            adj[u].push_back({v, w});
+            adj[v].push_back({u, w});
+        }
+        for(int i = 0; i <= n; i++){
+            parent[i] = i;
+        }
+        distance[1] = 0;
+        pq.push({0, 1});
+        
+        while(!pq.empty()){
+            int dis = pq.top().first;
+            int node = pq.top().second;
+            pq.pop();
+            
+            if (dis > distance[node]) continue;
+            for(auto nei: adj[node]){
+                int edgeDis = nei.second;
+                int adjNode = nei.first;
+                
+                if (dis + edgeDis < distance[adjNode]){
+                    distance[adjNode] = dis+edgeDis;
+                    parent[adjNode] = node;
+                    pq.push({distance[adjNode], adjNode});
+                }
+            }
+        }
+        if (distance[n] == 1e9) return {-1};
+        int node = n;
+        while(parent[node] != node){
+            ans.push_back(node);
+            node = parent[node];
+        }
+        ans.push_back(1);
+        reverse(ans.begin(), ans.end());
+        ans.insert(ans.begin(), distance[n]);
+        return ans;
+    }
+};
+
 // Word Ladder II
 class Solution {
 public:
