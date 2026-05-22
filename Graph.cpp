@@ -1,3 +1,43 @@
+// Cheapest Flights Within K Stops
+class Solution {
+public:
+    int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {
+        vector<vector<pair<int, int>>>adj(n);
+        for(auto flight: flights){
+            int u = flight[0];
+            int v = flight[1];
+            int w = flight[2];
+            adj[u].push_back({v, w});
+        }
+
+        queue<pair<int, pair<int, int>>>q; // {stop, {price, dest}};
+        q.push({0, {0, src}});
+        
+        vector<int>prices(n, 1e9);
+        prices[src] = 0;
+        
+
+        while(!q.empty()){
+            int currStops = q.front().first;
+            int currPrice = q.front().second.first;
+            int currNode = q.front().second.second;
+            q.pop();
+            if (currStops > k) break;
+
+            for(auto nei: adj[currNode]){
+                int edgePrice = nei.second;
+                int adjNode = nei.first;
+
+                if (edgePrice + currPrice < prices[adjNode]){
+                    prices[adjNode] = edgePrice + currPrice;
+                    q.push({currStops+1, {prices[adjNode], adjNode}});
+                }
+            }
+        }
+        return prices[dst] == 1e9 ? -1 : prices[dst];
+    }
+};
+
 // Shortest Path in an Undirected Graph
 class Solution {
   public:
