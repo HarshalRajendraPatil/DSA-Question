@@ -1,3 +1,29 @@
+// Minimum Multiplications to reach End
+class Solution {
+  public:
+    int minSteps(vector<int>& arr, int start, int end) {
+        queue<pair<int, int>>q;
+        q.push({0, start}); // {dis, node}
+        vector<int>distance(1000, 1e9);
+        distance[start] = 0;
+        
+        while(!q.empty()){
+            int currDis = q.front().first;
+            int node = q.front().second;
+            q.pop();
+            
+            for(auto nei: arr){
+                int newNode = (nei*node)%1000;
+                if (currDis + 1 < distance[newNode]){
+                    distance[newNode] = currDis+1;
+                    q.push({distance[newNode], newNode});
+                }
+            }
+        }
+        return distance[end] == 1e9 ? -1 : distance[end];
+    }
+};
+
 // Cheapest Flights Within K Stops
 class Solution {
 public:
