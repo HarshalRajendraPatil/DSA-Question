@@ -1,3 +1,46 @@
+// MST Prim's Algo
+class Solution {
+  public:
+    int spanningTree(int V, vector<vector<int>>& edges) {
+        vector<bool> visited(V, false);
+        vector<vector<pair<int, int>>>adj(V);
+        for(auto edge: edges){
+            int u = edge[0];
+            int v = edge[1];
+            int w = edge[2];
+            adj[u].push_back({v, w});
+            adj[v].push_back({u, w});
+        }
+        int mst = 0;
+        priority_queue<
+            pair<int, pair<int, int>>, 
+            vector<pair<int, pair<int, int>>>, 
+            greater<pair<int, pair<int, int>>>
+        > pq;
+        pq.push({0, {0, -1}});
+        
+        while(!pq.empty()){
+            int weight = pq.top().first;
+            int node = pq.top().second.first;
+            int parent = pq.top().second.second;
+            pq.pop();
+            
+            if(visited[node]) continue;
+            visited[node] = true;
+            mst+=weight;
+            
+            for(auto nei: adj[node]){
+                int edgeWeight = nei.second;
+                int adjNode = nei.first;
+                if (!visited[adjNode]){
+                    pq.push({edgeWeight, {adjNode, node}});
+                }
+            }
+        }
+        return mst;
+    }
+};
+
 // Minimum Multiplications to reach End
 class Solution {
   public:
