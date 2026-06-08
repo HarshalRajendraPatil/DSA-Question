@@ -1,3 +1,60 @@
+// Number of Operations to Make Network Connected
+class DisjointSet{
+public:
+    vector<int>parent;
+    vector<int>size;
+
+    DisjointSet(int n){
+        for(int i = 0; i <= n; i++){
+            parent.push_back(i);
+            size.push_back(1);
+        }
+    }
+
+    int findUltPar(int node){
+        if (node == parent[node]) return node;
+        return parent[node] = findUltPar(parent[node]); 
+
+    }
+
+    void unionBySize(int u, int v){
+        int ultU = findUltPar(u);
+        int ultV = findUltPar(v);
+        if (ultU == ultV) return;
+        if (size[ultU] > size[ultV]){
+            parent[ultV] = ultU;
+            size[ultU] += size[ultV];
+        }else{
+            parent[ultU] = ultV;
+            size[ultV] += size[ultU];
+        }
+    }
+};
+
+class Solution {
+public:
+    int makeConnected(int n, vector<vector<int>>& connections) {
+        DisjointSet ds(n);
+        int extraEdges = 0;
+        for(auto edge: connections){
+            int u = edge[0];
+            int v = edge[1];
+
+            if (ds.findUltPar(u) == ds.findUltPar(v)) extraEdges++;
+            else ds.unionBySize(u, v);
+        }
+
+        int totalComp = 0;
+        for(int i = 0; i < n; i++){
+            if (i == ds.parent[i]) totalComp++;
+        }
+
+        cout << totalComp << ' ' << extraEdges;
+        if (extraEdges >= totalComp - 1) return totalComp - 1;
+        return -1;
+    }
+};
+
 // MST Prim's Algo
 class Solution {
   public:
